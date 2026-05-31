@@ -63,10 +63,10 @@
         .chat-close-btn { cursor: pointer; color: #fff; background: #e74c3c; border-radius: 50%; width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; font-size: 10px; font-weight: bold; }
         .chat-messages { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; font-size: 13px;}
         .chat-messages::-webkit-scrollbar { width: 3px; } .chat-messages::-webkit-scrollbar-thumb { background: var(--c-primary); }
-        .msg-item { display: flex; flex-direction: column; animation: fadeIn 0.3s ease; }
+        .msg-item { display: flex; flex-direction: column; animation: fadeIn 0.2s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .msg-name { color: var(--c-gold); font-weight: bold; font-size: 11px;}
-        .msg-text { color: #fff; }
+        .msg-text { color: #fff; line-height: 1.3;}
 
         .btn-buy { background: linear-gradient(90deg, #ff0055, #990033); border: 2px solid #fff; color: white; padding: 10px; border-radius: 12px; font-size: 14px; font-weight: bold; cursor: pointer; text-align: center; text-transform: uppercase; box-shadow: 0 0 15px #ff0055; transition: 0.3s; }
         .btn-buy:active { transform: scale(0.95); }
@@ -95,9 +95,9 @@
         select.bet-select option { background: #111; color: #fff; }
 
         /* MB BANK TOAST */
-        .mb-toast { position: fixed; top: -150px; left: 50%; transform: translateX(-50%); background: #ffffff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); width: 340px; z-index: 9999; transition: top 0.5s; font-family: Arial, sans-serif; color: #333; border-bottom: 4px solid #1a56a8; }
-        .mb-toast.show { top: 40px; }
-        .mb-header { background: #1a56a8; color: #fff; padding: 10px 15px; display: flex; align-items: center; gap: 10px; }
+        .mb-toast { position: fixed; top: -300px; left: 50%; transform: translateX(-50%); background: #ffffff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); width: 340px; z-index: 9999; transition: top 0.5s, opacity 0.5s; font-family: Arial, sans-serif; color: #333; border-bottom: 4px solid #1a56a8; opacity: 0; visibility: hidden; }
+        .mb-toast.show { top: 40px; opacity: 1; visibility: visible; }
+        .mb-header { background: #1a56a8; color: #fff; padding: 10px 15px; display: flex; align-items: center; gap: 10px; border-top-left-radius: 8px; border-top-right-radius: 8px; }
         .mb-logo { background: #fff; color: #1a56a8; font-weight: 900; font-size: 16px; padding: 4px 8px; border-radius: 6px;}
 
         /* MODALS CHUNG */
@@ -116,6 +116,15 @@
         .quest-bar { width: 100%; height: 5px; background: #333; border-radius: 3px; margin-top: 5px;}
         .quest-progress { height: 100%; background: #2ecc71; width: 0%; transition: width 0.3s;}
         
+        /* ĐIỂM DANH 7 NGÀY */
+        .daily-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
+        .daily-grid .day-7 { grid-column: span 3; background: linear-gradient(135deg, #ff9f43, #ff0055); border-color: #ffd700; color: #fff;}
+        .daily-item { background: rgba(0,0,0,0.6); border: 1px solid #7f8c8d; border-radius: 8px; padding: 10px 5px; cursor: pointer; transition: 0.3s; color: #fff;}
+        .daily-item:hover { transform: scale(1.05); }
+        .daily-item.active { border-color: var(--c-primary); background: rgba(0, 243, 255, 0.2); box-shadow: 0 0 10px var(--c-primary); animation: dPulse 1.5s infinite alternate; }
+        .daily-item.claimed { opacity: 0.4; filter: grayscale(1); pointer-events: none; }
+        @keyframes dPulse { to { box-shadow: 0 0 20px var(--c-primary); } }
+
         /* BẢNG XẾP HẠNG (TABS) */
         .lb-tabs { display: flex; gap: 5px; margin-bottom: 15px; justify-content: center; }
         .lb-tab-btn { background: rgba(0,0,0,0.5); border: 1px solid var(--c-primary); color: #fff; padding: 8px 12px; border-radius: 8px; cursor: pointer; font-size: 12px; font-weight: bold; flex: 1; }
@@ -126,9 +135,6 @@
         .lb-top3 { color: #cd7f32; font-weight: bold;}
         .hist-item { text-align: left; font-size: 12px; padding: 8px; border-bottom: 1px dashed #444;}
         .hist-win { color: #2ecc71; } .hist-lose { color: #e74c3c; }
-
-        .daily-wheel { width: 200px; height: 200px; border-radius: 50%; border: 5px solid #fff; margin: 0 auto 20px; background: conic-gradient(#e74c3c 0deg 90deg, #f1c40f 90deg 180deg, #3498db 180deg 270deg, #9b59b6 270deg 360deg); transition: transform 3s cubic-bezier(0.25,0.1,0.25,1); position: relative;}
-        .wheel-pin { position: absolute; top: 50px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; border-top: 20px solid #fff; z-index: 10;}
 
         /* HUB 20 MINI GAMES */
         .hub-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
@@ -150,12 +156,17 @@
 </head>
 <body>
 
+<!-- THÊM NHẠC NỀN -->
+<audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_0625c1539c.mp3?filename=synthwave-80s-110045.mp3" type="audio/mpeg">
+</audio>
+
 <div class="overlay-bg"></div>
 
 <!-- 1. KÉO CỜ THÔNG BÁO -->
 <div class="marquee-container">
     <div class="marquee-content" id="marqueeText">
-        🔥 Chào mừng đến với Casino Pro Max! mxhquangdung.com hân hạnh tài trợ chương trình này 🔥 Người sáng lập: Lê Quang Dũng 🔥 Người bí ẩn 2026 vừa rút 50,000K 🔥 Thợ Săn Tiền Thưởng vừa trúng Jackpot! 🔥 Chúa Tể Bóng Đêm Ảo đang thắng lớn ở map Cao Bồi 🔥
+        🔥 Chào mừng đến với Casino Pro Max! mxhquangdung.com hân hạnh tài trợ chương trình này 🔥 Người sáng lập: Lê Quang Dũng 🔥 Người bí ẩn 2026 vừa rút 50,000K 🔥 Thợ Săn Tiền Thưởng vừa trúng Jackpot! 🔥 Boy Quảng Trị đang thắng lớn ở map Cao Bồi 🔥
     </div>
 </div>
 
@@ -163,7 +174,7 @@
 <div class="chat-box" id="chatBox">
     <div class="chat-header">KÊNH CHAT TỔNG <span>🟢 1,245 Online <span class="chat-close-btn" onclick="toggleChat()" title="Đóng Chat">✖</span></span></div>
     <div class="chat-messages" id="chatArea">
-        <div class="msg-item"><span class="msg-name">Hệ Thống</span><span class="msg-text">Chào mừng bạn gia nhập!</span></div>
+        <div class="msg-item"><span class="msg-name">Hệ Thống</span><span class="msg-text">Chào mừng bạn gia nhập! Click vào màn hình để bật nhạc nền nhé.</span></div>
     </div>
 </div>
 
@@ -179,14 +190,15 @@
     </div>
 </div>
 
-<!-- MODALS -->
+<!-- MODAL ĐIỂM DANH 7 NGÀY -->
 <div class="modal-overlay" id="dailyModal">
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('dailyModal')">✖</button>
-        <div class="m-title">🎁 ĐIỂM DANH HÀNG NGÀY</div>
-        <div class="wheel-pin"></div>
-        <div class="daily-wheel" id="dWheel"></div>
-        <button class="btn-confirm" onclick="spinDaily()">QUAY NHẬN QUÀ</button>
+        <div class="m-title">🎁 ĐIỂM DANH 7 NGÀY</div>
+        <div class="daily-grid" id="dailyGrid">
+            <!-- Rendered by JS -->
+        </div>
+        <div style="font-size: 12px; color: #aaa;">Đăng nhập mỗi ngày để nhận thưởng. Ngày 7 nhận Siêu Quà!</div>
     </div>
 </div>
 
@@ -307,7 +319,7 @@
             <button class="icon-btn" style="border-color: #e74c3c; color: #e74c3c;" onclick="openLB()" title="BXH">🏆</button>
             <button class="icon-btn" style="border-color: #9b59b6; color: #9b59b6;" onclick="openModal('histModal')" title="Lịch sử">🕒</button>
             <button class="icon-btn" style="border-color: var(--c-primary); color: var(--c-primary);" onclick="switchTheme()" title="Đổi Map">🤠</button>
-            <button id="soundToggle" class="icon-btn" onclick="toggleSound()">🔇</button>
+            <button id="soundToggle" class="icon-btn" onclick="toggleSound()">🔊</button>
         </div>
     </div>
 
@@ -334,7 +346,8 @@
         <div class="row-flex">
             <div class="info-box" style="box-shadow: 0 0 10px rgba(0,243,255,0.3);">
                 <div class="info-label">VÀNG (K)</div>
-                <div class="info-value" id="balance" style="color: var(--c-primary); font-size: 18px;">5000.00</div>
+                <!-- SỬA TIỀN KHỞI ĐẦU Ở ĐÂY VÀ TRONG JS -->
+                <div class="info-value" id="balance" style="color: var(--c-primary); font-size: 18px;">1000.00</div>
             </div>
             <button class="btn-small" style="background: #1a56a8; color: #fff; border-color: #fff;" onclick="openWithdraw()">🏦 RÚT MB</button>
             <button class="btn-small" style="background: #9b59b6; color: #fff; border-color: #fff;" onclick="openHub()">🎮 GAME</button>
@@ -361,19 +374,41 @@
 </div>
 
 <script>
-    /* --- HỆ THỐNG ÂM THANH API --- */
+    /* --- HỆ THỐNG ÂM THANH API & TỰ ĐỘNG PHÁT BGM --- */
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    let soundEnabled = false;
-    function toggleSound() { soundEnabled = !soundEnabled; document.getElementById('soundToggle').innerText = soundEnabled ? '🔊' : '🔇'; if (soundEnabled && audioCtx.state === 'suspended') audioCtx.resume(); }
+    let soundEnabled = true; // Bật mặc định
+    let bgm = document.getElementById('bgMusic');
+    bgm.volume = 0.4;
+    
+    // Tự động phát nhạc khi user click bất kỳ đâu trên trang
+    document.body.addEventListener('click', function() {
+        if(bgm.paused && soundEnabled) {
+            bgm.play().catch(e => console.log("Chưa thể tự phát nhạc."));
+            if(audioCtx.state === 'suspended') audioCtx.resume();
+        }
+    }, { once: true });
+
+    function toggleSound() { 
+        soundEnabled = !soundEnabled; 
+        document.getElementById('soundToggle').innerText = soundEnabled ? '🔊' : '🔇'; 
+        if (soundEnabled) {
+            if(audioCtx.state === 'suspended') audioCtx.resume();
+            bgm.play().catch(e=>{});
+        } else {
+            bgm.pause();
+        }
+    }
+
     function pTone(f, t, d, v=0.1) { if(!soundEnabled) return; const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.type=t; o.frequency.setValueAtTime(f, audioCtx.currentTime); g.gain.setValueAtTime(v, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime+d); o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime+d); }
     function pSpin() { pTone(800, 'square', 0.03, 0.01); } function pExplode() { pTone(150, 'sawtooth', 0.2, 0.2); } function pWin() { setTimeout(()=>pTone(440,'sine',0.2,0.1),0); setTimeout(()=>pTone(659,'sine',0.3,0.1),150); } function pBigWin() { setTimeout(()=>pTone(523,'triangle',0.2,0.2),0); setTimeout(()=>pTone(1046,'triangle',0.6,0.3),200); }
 
     /* --- CẤU HÌNH CƠ BẢN --- */
-    let balance = 5000.00; let mainBet = 0.40;
+    // Đã thay đổi tiền khởi đầu thành 1000
+    let balance = 1000.00; let mainBet = 0.40;
     let isSpinning = false, isAuto = false, isTurbo = false, isHyper = false;
     let autoSpinTimeout = null, freeSpinsLeft = 0;
     let currentTheme = 'aov'; const totalCells = 30;
-    let lifetimeBet = 0; // Thêm biến lưu tổng cược vĩnh viễn
+    let lifetimeBet = 0; 
 
     const themes = {
         aov: { title: "LIÊN QUÂN SLOT", btnText: "MUA 15 NỔ HŨ", symbols: ['🪄', '🗡️', '🐉', '🏰', '👑', '🔥', '⚡', '⚔️', '🛡️'], wild: '🌟', scatter: '🔮', payouts: { '🪄':0.2, '🗡️':0.3, '🐉':0.4, '🏰':0.5, '👑':1.0, '🔥':1.5, '⚡':2.0, '⚔️':3.0, '🛡️':5.0 } },
@@ -383,48 +418,73 @@
     /* --- TÍNH NĂNG MỚI: VIP, QUEST, HISTORY, JACKPOT, CHAT ĐA DẠNG --- */
     let xp = 0; let xpNeeded = 1000; let vipLevel = 1;
     let qSpins = 0; let qBetTotal = 0;
+    let q1Claimed = false; let q2Claimed = false;
     let jackpot = 50000.00;
     let hasShield = false; let hasX2 = false;
 
-    // Chạy Jackpot ảo
     setInterval(() => { jackpot += Math.random() * 5; document.getElementById('jpAmt').innerText = jackpot.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }, 1000);
 
-    // Chạy Chat ảo (Nhiều tên & nội dung lạ, hài hước, độc đáo)
+    /* DANH SÁCH NPC CỰC KHỦNG (60+ Tên) */
     const fakeNames = [
+        'Người bí ẩn 2026', 'Lê Quang Dũng', 'Trần Minh Triết', 'Chị Ngân 74', 'Thủy', 'Boy Quảng Trị 74',
         'Simp Chúa Chợ Mới', 'Giáo Sư Xoay Slot', 'Ninja Rùa Quét Rác', 'Cục Đá Biết Đi', 
         'Hiệp Sĩ Mù', 'Thích Khách Ăn Xin', 'Khủng Long Ăn Cỏ', 'Bạch Tuyết 7 Chú Lùn', 
         'Batman Chạy Grab', 'Siêu Nhân Cầu Móng', 'Lãng Tử Vô Tình', 'Boy Mù Đường', 
         'Sát Thủ Bán Cá', 'Đại Náo Casino', 'Phù Thủy Hốt Cứt', 'Đỗ Thánh Nhập', 
         'Cờ Bạc Bịp', 'Chuyên Gia Nướng Tiền', 'Thánh Lật Kèo', 'Thợ Săn Hũ Vàng',
-        'Cậu Bé Bán Diêm', 'Cô Gái Đồ Long', 'Lão Bá Đạo', 'Kẻ Hủy Diệt Máy Chủ'
+        'Cậu Bé Bán Diêm', 'Cô Gái Đồ Long', 'Lão Bá Đạo', 'Kẻ Hủy Diệt Máy Chủ',
+        'Chiến Tướng LQ', 'Trùm Free Fire', 'Dân Chơi Đà Nẵng', 'SV Duy Tân K29',
+        'Gymer Chúa 6 Múi', 'Chủ Tịch Asia Life', 'Best Nakroth ĐN', 'Boy 1 Champ Yasuo',
+        'Trùm Kéo Rank', 'Gà Công Nghiệp', 'Thần Đồng Tài Xỉu', 'Chuyên Gia Phân Tích Cầu',
+        'Bà Hàng Xóm', 'Đại Gia Giấu Tên', 'Chúa Tể Bóng Đêm', 'Phù Thủy Toán Học',
+        'Săn Sale 1K', 'Ế Bằng Thực Lực', 'Đang Chạy Deadline', 'Ngủ Gật Trong Lớp',
+        'Nhịn Ăn Chơi Nét', 'Thích Đu Idol', 'Ông Hoàng Bịp Bợm', 'Kẻ Thất Tình',
+        'Cú Đêm 3h Sáng', 'Đội Trưởng Lạc Đường', 'Bậc Thầy Trốn Học', 'Mỏ Hỗn Xóm Trọ',
+        'Sói Cô Độc', 'Gấu Mùa Đông'
     ];
     
+    /* DANH SÁCH NỘI DUNG CHAT CỰC PHONG PHÚ (80+ Câu) */
     const fakeMsgs = [
-        'Vừa tất tay tài xỉu sập nguồn luôn ae', 
-        'Chơi game này bánh cuốn thực sự', 
-        'Ai ném tôi cái bùa hộ mệnh đi, đen quá', 
-        'Nhà cái nay dễ tính thế, toàn nhả', 
-        'Tôi vừa mơ thấy số 7, quất luôn Roulette', 
-        'Mới múc 15 lượt nổ hũ mà bay sạch rồi', 
-        'Bay mẹ con SH rồi, cay thế', 
-        'Có ai biết rút tiền chưa duyệt không', 
-        'Game bị lỗi hay sao mà nãy giờ toàn x2 vậy', 
-        'Xin tips quay Aviator không nổ', 
-        'Thề luôn, phát nãy mà trúng là nghỉ làm rồi', 
-        'Ai cho mượn 100K gỡ gạc xíu coi', 
-        'Sắp mua được Mẹc từ con game này rồi', 
-        'Jackpot 50 triệu chia cho anh em đi', 
-        'Quay 50 phát không ra cái free spin nào', 
-        'Lại lên tivi nữa rồi, ngại quá', 
-        'Bác nào top 1 chỉ giáo em vài đường cơ bản', 
-        'Thua keo này ta bày keo khác, anh em đừng nản', 
-        'Đập trứng toàn ra x0.5 cay thật sự', 
-        'Bà Đồng đoán lươn khươn vãi, lừa tui', 
-        'Má ơi tự nhiên nổ siêu jackpot sướng quá', 
-        'Gái gọi rủ đi chơi mà đang dở ván tài xỉu', 
-        'Bán nhà chơi luôn sợ gì', 
-        'Nãy h auto quay mà cháy máy luôn', 
-        'Lên đỉnh vinh quang ae ơi'
+        'Vừa tất tay tài xỉu sập nguồn luôn ae', 'Chơi game này bánh cuốn thực sự', 
+        'Ai ném tôi cái bùa hộ mệnh đi, đen quá', 'Nhà cái nay dễ tính thế, toàn nhả', 
+        'Tôi vừa mơ thấy số 7, quất luôn Roulette', 'Mới múc 15 lượt nổ hũ mà bay sạch rồi', 
+        'Bay mẹ con SH rồi, cay thế', 'Có ai biết rút tiền chưa duyệt không', 
+        'Game bị lỗi hay sao mà nãy giờ toàn x2 vậy', 'Xin tips quay Aviator không nổ', 
+        'Ai cho mượn 100K gỡ gạc xíu coi', 'Sắp mua được Mẹc từ con game này rồi', 
+        'Jackpot 50 triệu chia cho anh em đi', 'Quay 50 phát không ra cái free spin nào', 
+        'Bác nào top 1 chỉ giáo em vài đường cơ bản', 'Thua keo này ta bày keo khác, anh em đừng nản', 
+        'Má ơi tự nhiên nổ siêu jackpot sướng quá', 'Gái gọi rủ đi chơi mà đang dở ván tài xỉu', 
+        'Lên đỉnh vinh quang ae ơi', 'Đang leo rank Chiến Tướng nhảy qua thả 1 nháy',
+        'Thủy ơi, chừng nào check tin nhắn anh? :(', 'Trần Minh Triết trúng quả đậm kìa khao ae đi',
+        'Chị Ngân 74 nay rảnh không vào kéo rank Liên Quân đi', 'Học Digital Marketing lú đầu quá vô làm vài ván',
+        'Vừa tập gym đẩy ngực 100kg xong tay run bấm lộn All in =))', 'Dân Quảng Trị đánh đâu thắng đó ae ơi',
+        'Vừa gánh team Free Fire xong qua đây kiếm thêm lúa', 'Có ai mua máy rửa bát năng lượng mặt trời không, đang khởi nghiệp',
+        'Bài LÊ QUANG DŨNG 2007 – VIẾT LẠI CUỘC ĐỜI nghe dính vãi', 'Asia Life chuẩn bị lên sàn chứng khoán rồi ae ạ',
+        'Sáng nay sếp chửi, tối về húp luôn 5 củ', 'Mai thi ở Duy Tân rồi mà giờ này còn ngồi canh Aviator',
+        'Đà Nẵng nay mưa to, ở nhà nổ hũ là chân ái', 'Anh em nào bế tắc thì làm liều 1 phen',
+        'Mới lãnh lương xong làm 1 vòng wheel xem sao', 'Tài xỉu soi cầu dễ mà, ae cứ tin tôi',
+        'Bà Đồng phán như thần, uy tín 100%', 'Lại lên tivi nữa rồi, ngại quá',
+        'Nãy h auto quay mà cháy máy luôn', 'Trúng quả đậm này nghỉ làm cmnl',
+        'Bùa hộ mệnh mua phí tiền, vẫn đen như chó', 'Đập trứng toàn ra x0.5 cay thật sự',
+        'Bán nhà chơi luôn sợ gì', 'Vừa bị bồ đá, vào đây tìm niềm vui',
+        'Ai top 1 ném cho em cái thẻ 50k đi', 'Game ảo vãi, mới thua xong lại nổ hũ',
+        'Xì dách rút toàn quắc, nghỉ chơi!', 'Đặt Bão Sicbo x30 mà nó ra 1-2-3 cay thế',
+        'Có cách nào hack VIP không ae?', 'Ad ơi nạp tiền mà nãy giờ chưa thấy vô',
+        'Xin cách quay ra free spin liên tục', 'Rút tiền MB Bank 30s là về, mượt lắm',
+        'Penalty sút toàn trúng thủ môn, phế vật', 'Long Hổ đọ bài căng cực, mồ hôi mẹ mồ hôi con rơi',
+        'Đua ngựa con Đỏ chạy như siêu xe', 'Mới nạp 200k cày lên 5 củ, ảo ma canada',
+        'Anh em theo tôi tất tay Baccarat cửa Banker', 'Cày cuốc mệt quá, đi ngủ đây mai phục thù',
+        'Game cuốn quá quên luôn đón người yêu, toang rồi', 'Chủ thớt làm quả giao diện đỉnh đấy',
+        'Chơi vui thôi ae, đừng cắm sổ đỏ nhé', 'Vừa nhặt được 50k rớt ngoài đường, vào all in luôn',
+        'Cứ từ từ mà cày, dục tốc bất đạt', 'Tính ra chơi trò này còn dễ hơn qua môn Triết',
+        'Cày rank FF rớt xuống Bạch Kim, qua đây gỡ lại danh dự', 'Cao bồi bắn súng xịn phết, nổ bùm bùm',
+        'Ai biết pass wifi quán cf mình đang ngồi không?', 'Đang học bài mà ting ting tiền về sướng rơn',
+        'Cuộc sống mà, có lúc lên voi xuống chó', 'Nổ hũ liên tọi, nhà cái khóc thét chưa',
+        'Tích tiểu thành đại, đừng tham quá ae ơi', 'Nhìn bảng xếp hạng mà thèm, chừng nào mới lên top',
+        'Mới bị thầy giáo gọi lên bảng, may mà thoát nạn', 'Tối nay có ai đi nhậu không, tôi khao!',
+        'Nghe đồn ad sắp ra map mới, hóng vãi', 'Vừa mua cái bùa hộ mệnh xong thắng liên tiếp 5 ván',
+        'Đúng là thánh nhân đãi kẻ khù khờ', 'Cuối tháng hết tiền rồi, ráng cày kiếm gói mì tôm',
+        'Mới rớt môn xong, vào đây xả stress', 'Chơi game 180 độ C luôn, nóng hết cả máy'
     ];
     
     function toggleChat() {
@@ -432,15 +492,15 @@
         c.style.display = (c.style.display === 'none' || c.style.display === '') ? 'flex' : 'none';
     }
 
-    // Interval chat được điều chỉnh nhanh và nhộn nhịp hơn (mỗi 2 giây xuất hiện tin mới)
+    // TỐC ĐỘ CHAT: Nhanh 1.2s/tin nhắn
     setInterval(() => {
         let box = document.getElementById('chatArea');
         let n = fakeNames[Math.floor(Math.random()*fakeNames.length)];
         let m = fakeMsgs[Math.floor(Math.random()*fakeMsgs.length)];
         box.innerHTML += `<div class="msg-item"><span class="msg-name">${n}</span><span class="msg-text">${m}</span></div>`;
         box.scrollTop = box.scrollHeight;
-        if(box.childNodes.length > 30) box.removeChild(box.firstChild); // Giữ tối đa 30 tin nhắn
-    }, 2000); 
+        if(box.childNodes.length > 35) box.removeChild(box.firstChild); 
+    }, 1200); 
 
     /* --- PHẦN THƯỞNG MỐC CƯỢC --- */
     const betRewards = [
@@ -481,19 +541,19 @@
         pBigWin();
         addHistory(`Nhận thưởng cược mốc ${betRewards[idx].goal}K (+${betRewards[idx].reward}K)`, true);
         alert(`Chúc mừng! Bạn nhận được ${betRewards[idx].reward}K từ phần thưởng mốc cược!`);
-        openBetReward(); // refresh
+        openBetReward();
     }
 
     /* --- BẢNG XẾP HẠNG ĐA DẠNG --- */
     const lbData = {
         rich: [
-            { n: 'Cờ Bạc Bịp', s: '99,500K' }, { n: 'Đỗ Thánh Nhập', s: '85,200K' }, { n: 'Thợ Săn Hũ Vàng', s: '72,100K' }, { n: 'Siêu Nhân Cầu Móng', s: '60,000K' }, { n: 'Thích Khách Ăn Xin', s: '45,000K' }
+            { n: 'Người bí ẩn 2026', s: '99,500K' }, { n: 'Đỗ Thánh Nhập', s: '85,200K' }, { n: 'Thợ Săn Hũ Vàng', s: '72,100K' }, { n: 'Siêu Nhân Cầu Móng', s: '60,000K' }, { n: 'Chị Ngân 74', s: '45,000K' }
         ],
         bet: [
-            { n: 'Chuyên Gia Nướng Tiền', s: '150,000K' }, { n: 'Đại Náo Casino', s: '120,500K' }, { n: 'Batman Chạy Grab', s: '105,000K' }, { n: 'Cậu Bé Bán Diêm', s: '90,000K' }, { n: 'Ninja Rùa Quét Rác', s: '88,000K' }
+            { n: 'Chuyên Gia Nướng Tiền', s: '150,000K' }, { n: 'Lê Quang Dũng', s: '120,500K' }, { n: 'Batman Chạy Grab', s: '105,000K' }, { n: 'SV Duy Tân K29', s: '90,000K' }, { n: 'Ninja Rùa Quét Rác', s: '88,000K' }
         ],
         vip: [
-            { n: 'Giáo Sư Xoay Slot', s: 'VIP 9' }, { n: 'Khủng Long Ăn Cỏ', s: 'VIP 8' }, { n: 'Lãng Tử Vô Tình', s: 'VIP 8' }, { n: 'Simp Chúa Chợ Mới', s: 'VIP 7' }, { n: 'Boy Mù Đường', s: 'VIP 6' }
+            { n: 'Giáo Sư Xoay Slot', s: 'VIP 9' }, { n: 'Khủng Long Ăn Cỏ', s: 'VIP 8' }, { n: 'Trần Minh Triết', s: 'VIP 8' }, { n: 'Simp Chúa Chợ Mới', s: 'VIP 7' }, { n: 'Boy Quảng Trị 74', s: 'VIP 6' }
         ]
     };
     
@@ -538,11 +598,20 @@
 
     function updateQuests(spinInc, betInc) {
         qSpins += spinInc; qBetTotal += betInc; lifetimeBet += betInc;
-        if(qSpins > 50) qSpins = 50; if(qBetTotal > 10000) qBetTotal = 10000;
+        if(qSpins > 50) qSpins = 50; 
+        if(qBetTotal > 10000) qBetTotal = 10000;
+        
         document.getElementById('qBar1').style.width = `${(qSpins/50)*100}%`; document.getElementById('qTxt1').innerText = `${qSpins}/50`;
         document.getElementById('qBar2').style.width = `${(qBetTotal/10000)*100}%`; document.getElementById('qTxt2').innerText = `${Math.floor(qBetTotal)}/10000`;
-        if(spinInc > 0 && qSpins === 50) { balance += 200; alert("🎁 Hoàn thành NV Quay! Nhận 200K"); qSpins=51; updateUI();}
-        if(betInc > 0 && qBetTotal === 10000) { balance += 500; alert("🎁 Hoàn thành NV Cược! Nhận 500K"); qBetTotal=10001; updateUI();}
+        
+        if(qSpins === 50 && !q1Claimed) { 
+            q1Claimed = true; balance += 200; updateUI();
+            setTimeout(() => alert("🎁 Hoàn thành NV Quay 50 lần! Nhận 200K"), 100); 
+        }
+        if(qBetTotal === 10000 && !q2Claimed) { 
+            q2Claimed = true; balance += 500; updateUI();
+            setTimeout(() => alert("🎁 Hoàn thành NV Cược 10.000K! Nhận 500K"), 100); 
+        }
     }
 
     function buyItem(cost, name) {
@@ -571,13 +640,51 @@
         const toast = document.getElementById('mbToast'); toast.classList.add('show'); setTimeout(() => toast.classList.remove('show'), 5000);
     }
 
-    /* --- VÒNG QUAY ĐIỂM DANH --- */
-    let hasSpunDaily = false;
-    window.onload = () => { setTimeout(()=> { if(!hasSpunDaily) openModal('dailyModal'); }, 1000); initGrid(); }
-    function spinDaily() {
-        if(hasSpunDaily) return alert("Hôm nay đã quay rồi!"); hasSpunDaily = true;
-        let w = document.getElementById('dWheel'); let deg = Math.floor(Math.random()*360)+1440; w.style.transform = `rotate(${deg}deg)`;
-        setTimeout(() => { let amt = [50, 100, 200, 500][Math.floor(Math.random()*4)]; balance+=amt; updateUI(); alert(`Điểm danh nhận ${amt}K!`); pWin(); closeModal('dailyModal'); addHistory(`Điểm danh ngày (+${amt}K)`, true); }, 3000);
+    /* --- ĐIỂM DANH 7 NGÀY --- */
+    let currentDay = 1; // Từ ngày 1 đến 7
+    let hasClaimedToday = false;
+    const dailyRewards = [100, 200, 300, 500, 800, 1000, 5000]; // Phần thưởng 7 ngày
+
+    window.onload = () => { 
+        renderDaily();
+        if(!hasClaimedToday) {
+            setTimeout(() => openModal('dailyModal'), 1000);
+        }
+        initGrid(); 
+    };
+
+    function renderDaily() {
+        let h = '';
+        for(let i=0; i<7; i++) {
+            let dayNum = i+1;
+            let isClaimed = dayNum < currentDay || (dayNum === currentDay && hasClaimedToday);
+            let isActive = dayNum === currentDay && !hasClaimedToday;
+            let cls = 'daily-item';
+            if (dayNum === 7) cls += ' day-7';
+            if (isClaimed) cls += ' claimed';
+            if (isActive) cls += ' active';
+            
+            let onclick = isActive ? `onclick="claimDaily(${dayNum})"` : '';
+            h += `<div class="${cls}" ${onclick}>
+                    <div style="font-weight:bold; font-size:12px; color:var(--c-gold)">NGÀY ${dayNum}</div>
+                    <div style="font-size:20px; margin: 5px 0;">🎁</div>
+                    <div style="font-size:14px; font-weight:bold;">+${dailyRewards[i]}K</div>
+                  </div>`;
+        }
+        document.getElementById('dailyGrid').innerHTML = h;
+    }
+
+    function claimDaily(day) {
+        if(day !== currentDay || hasClaimedToday) return;
+        let amt = dailyRewards[day-1];
+        balance += amt;
+        hasClaimedToday = true;
+        updateUI();
+        pBigWin();
+        addHistory(`Điểm danh Ngày ${day} (+${amt}K)`, true);
+        alert(`🎉 Bạn đã nhận được ${amt}K từ phần quà điểm danh ngày ${day}!`);
+        renderDaily();
+        setTimeout(() => closeModal('dailyModal'), 1000);
     }
 
     /* --- LÕI SLOT CASCADE --- */
