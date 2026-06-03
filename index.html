@@ -57,16 +57,17 @@
         .jackpot-amount { font-size: 32px; font-weight: 900; color: var(--c-gold); text-shadow: 0 0 15px var(--c-gold);}
 
         /* 4. CHAT GIẢ LẬP TƯƠNG TÁC THẬT */
-        .chat-box { position: fixed; bottom: 20px; left: 20px; width: 300px; height: 220px; background: rgba(0,0,0,0.85); border: 1px solid var(--border-color); border-radius: 15px; backdrop-filter: blur(10px); z-index: 100; display: flex; flex-direction: column; overflow: hidden; opacity: 0.9; transition: 0.3s;}
-        .chat-box:hover { opacity: 1; height: 280px; }
+        .chat-box { position: fixed; bottom: 20px; left: 20px; width: 340px; height: 250px; background: rgba(0,0,0,0.9); border: 1px solid var(--border-color); border-radius: 15px; backdrop-filter: blur(10px); z-index: 100; display: flex; flex-direction: column; overflow: hidden; opacity: 0.95; transition: 0.3s;}
+        .chat-box:hover { opacity: 1; height: 360px; }
         .chat-header { background: var(--border-color); padding: 8px 10px; font-weight: bold; font-size: 12px; color: #fff; display: flex; justify-content: space-between; align-items: center;}
         .chat-close-btn { cursor: pointer; color: #fff; background: #e74c3c; border-radius: 50%; width: 20px; height: 20px; display: flex; justify-content: center; align-items: center; font-size: 10px; font-weight: bold; }
-        .chat-messages { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; font-size: 13px;}
+        .chat-messages { flex: 1; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 6px; font-size: 13px;}
         .chat-messages::-webkit-scrollbar { width: 3px; } .chat-messages::-webkit-scrollbar-thumb { background: var(--c-primary); }
-        .msg-item { display: flex; flex-direction: column; animation: fadeIn 0.2s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .msg-name { color: var(--c-gold); font-weight: bold; font-size: 11px;}
-        .msg-text { color: #fff; line-height: 1.3;}
+        .msg-item { display: flex; flex-direction: column; animation: fadeIn 0.2s ease; line-height: 1.45; border-bottom: 1px solid rgba(255,255,255,0.02); padding-bottom: 5px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .msg-name { color: var(--c-gold); font-weight: bold; font-size: 12px; display: inline-flex; gap: 4px; align-items: center; flex-wrap: wrap;}
+        .msg-text { color: #f0f0f0; font-size: 13px;}
+        .npc-tag { font-size: 9px; padding: 1px 4px; border-radius: 3px; font-weight: bold; color: #fff; text-transform: uppercase; letter-spacing: 0.5px; white-space: nowrap;}
         
         .chat-input-area { display: flex; gap: 5px; padding: 8px; background: rgba(0,0,0,0.9); border-top: 1px solid var(--border-color); }
         .chat-input-area input { flex: 1; background: transparent; border: 1px solid var(--c-primary); color: #fff; padding: 6px; border-radius: 5px; font-size: 12px; outline: none; }
@@ -84,6 +85,7 @@
         .symbol-box.exploding { transform: scale(1.3); opacity: 0; border-color: var(--c-gold); z-index: 5; transition: all 0.4s ease-out; }
         .symbol-box.win-highlight { border-color: var(--c-gold); background: rgba(255,215,0,0.2); z-index: 4; transform: scale(1.1); }
         .mult-text { font-family: var(--font-title); font-size: 16px; font-weight: 900; color: var(--c-primary); }
+        .mult-text.mult-epic { color: var(--c-secondary); text-shadow: 0 0 10px var(--c-secondary); }
         .spinning { filter: blur(3px); animation: spin 0.08s infinite linear; }
         @keyframes spin { 0% { transform: translateY(-10px); } 100% { transform: translateY(10px); } }
 
@@ -98,18 +100,13 @@
         .btn-spin { background: linear-gradient(135deg, #ffd700, #ff8c00); border: 2px solid #fff; color: #000; width: 70px; height: 70px; border-radius: 50%; font-size: 16px; font-weight: 900; cursor: pointer; box-shadow: 0 0 20px var(--c-gold); font-family: var(--font-title); transition: 0.2s;}
         .btn-spin:active { transform: scale(0.9); }
         
-        select.bet-select { background: transparent; color: var(--c-primary); border: none; font-size: 14px; font-weight: bold; outline: none; cursor: pointer;}
-        select.bet-select option { background: #111; color: #fff; }
+        .custom-bet-input { background: transparent; color: var(--c-primary); border: none; font-size: 15px; font-weight: bold; outline: none; text-align: center; width: 80px; font-family: var(--font-main); border-bottom: 1px dashed var(--c-primary); padding: 2px 0;}
 
         /* TOAST GIAO DỊCH */
         .mb-toast { position: fixed; top: -300px; left: 50%; transform: translateX(-50%); background: #ffffff; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); width: 340px; z-index: 9999; transition: top 0.5s, opacity 0.5s; font-family: Arial, sans-serif; color: #333; opacity: 0; visibility: hidden; }
         .mb-toast.show { top: 40px; opacity: 1; visibility: visible; }
         .mb-header { color: #fff; padding: 10px 15px; display: flex; align-items: center; gap: 10px; border-top-left-radius: 8px; border-top-right-radius: 8px; }
         .mb-logo { background: #fff; font-weight: 900; font-size: 16px; padding: 4px 8px; border-radius: 6px;}
-        
-        /* TOAST LÌ XÌ AFK */
-        .afk-toast { position: fixed; bottom: 20px; right: -300px; background: linear-gradient(135deg, #c0392b, #8e44ad); color: white; padding: 15px 25px; border-radius: 12px; border: 2px solid var(--c-gold); box-shadow: 0 0 20px rgba(255,215,0,0.5); font-family: var(--font-main); font-size: 18px; font-weight: bold; z-index: 9999; transition: right 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); display: flex; align-items: center; gap: 10px;}
-        .afk-toast.show { right: 20px; }
 
         /* MODALS CHUNG */
         .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 1000; display: none; justify-content: center; align-items: center; backdrop-filter: blur(10px); }
@@ -181,9 +178,9 @@
 </div>
 
 <div class="chat-box" id="chatBox">
-    <div class="chat-header">KÊNH CHAT TỔNG <span>🟢 1,245 Online <span class="chat-close-btn" onclick="toggleChat()" title="Đóng Chat">✖</span></span></div>
+    <div class="chat-header">KÊNH CHAT TỔNG <span>🟢 4,215 Online <span class="chat-close-btn" onclick="toggleChat()" title="Đóng Chat">✖</span></span></div>
     <div class="chat-messages" id="chatArea">
-        <div class="msg-item"><span class="msg-name">Hệ Thống</span><span class="msg-text">Chào mừng bạn gia nhập! Click màn hình để bật nhạc nền.</span></div>
+        <div class="msg-item"><span class="msg-name">Hệ Thống</span><span class="msg-text">Chào mừng bạn gia nhập! Hãy nhập tin nhắn giao lưu cùng sòng bài.</span></div>
     </div>
     <div class="chat-input-area">
         <input type="text" id="myChatMsg" placeholder="Nhập tin nhắn (Enter)..." maxlength="60">
@@ -202,10 +199,6 @@
     </div>
 </div>
 
-<div class="afk-toast" id="afkToast">
-    🧧 <span style="font-size: 14px;">LÌ XÌ AFK</span> <span id="afkAmt" style="color: var(--c-gold); font-size: 24px; text-shadow: 0 0 5px #000;">+0K</span>
-</div>
-
 <div class="modal-overlay" id="dailyModal">
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('dailyModal')">✖</button>
@@ -221,7 +214,6 @@
     <div class="modal-content">
         <button class="modal-close" onclick="closeModal('gachaModal')">✖</button>
         <div class="m-title" style="color: #00f3ff; text-shadow: 0 0 15px #00f3ff;">🎴 GACHA THẦN BINH</div>
-        <div style="font-size: 12px; color: #aaa; margin-bottom: 15px;">Sưu tầm đủ 4 mảnh ghép để nhận danh hiệu <b style="color:var(--c-primary)">[CHIẾN TƯỚNG]</b> chói lóa trên Kênh Chat và <b style="color:var(--c-gold)">20,000K</b> Vàng!</div>
         <div style="display:flex; justify-content:space-around; margin-bottom: 15px; width: 100%;">
             <div class="gacha-item" id="gc-kiem">🗡️<span>0</span></div>
             <div class="gacha-item" id="gc-giap">🛡️<span>0</span></div>
@@ -263,9 +255,9 @@
         <button class="modal-close" onclick="closeModal('questModal')">✖</button>
         <div class="m-title">📜 NHIỆM VỤ HÀNG NGÀY</div>
         <div class="quest-item">
-            <b>Quay Slot 50 lần</b> (Thưởng 200K)
+            <b>Quay Slot 400 lần</b> (Thưởng 100K Vàng)
             <div class="quest-bar"><div class="quest-progress" id="qBar1"></div></div>
-            <div style="font-size: 10px; text-align: right;" id="qTxt1">0/50</div>
+            <div style="font-size: 10px; text-align: right;" id="qTxt1">0/400</div>
         </div>
         <div class="quest-item">
             <b>Cược tổng 10,000K</b> (Thưởng 500K)
@@ -382,24 +374,24 @@
         <div class="row-flex" style="gap: 5px;">
             <div class="info-box" style="box-shadow: 0 0 10px rgba(0,243,255,0.3); flex: 1.5;">
                 <div class="info-label">VÀNG (K)</div>
-                <div class="info-value" id="balance" style="color: var(--c-primary); font-size: 18px;">1000.00</div>
+                <div class="info-value" id="balance" style="color: var(--c-primary); font-size: 18px;">100.00</div>
             </div>
             <button class="btn-small" style="background: #e6147d; color: #fff; border-color: #ff00a0;" onclick="openDeposit()">💳 NẠP</button>
             <button class="btn-small" style="background: #1a56a8; color: #fff; border-color: #fff;" onclick="openWithdraw()">🏦 RÚT</button>
             <button class="btn-small" style="background: #9b59b6; color: #fff; border-color: #fff;" onclick="openHub()">🎮 GAME</button>
         </div>
         <div class="row-flex" style="justify-content: space-between;">
-            <div style="display:flex; flex-direction:column; gap:5px;">
+            <div style="display:flex; flex-direction:column; gap:5px; flex:1;">
                 <button class="btn-small" id="hyperBtn" onclick="toggleHyper()">⚡ TỐC</button>
-                <div class="info-box" style="padding: 2px;">
-                    <select id="betSelect" class="bet-select" onchange="updateMainBet()">
-                        <option value="0.40">0.40 K</option><option value="4.00">4.00 K</option>
-                        <option value="10.00">10.00 K</option><option value="50.00">50.00 K</option>
-                    </select>
+                <button class="btn-small" id="lightBtn" onclick="toggleLight()">✨ QUANG</button>
+            </div>
+            <div style="display:flex; flex-direction:column; align-items:center; gap:5px; flex:1.2;">
+                <button class="btn-spin" id="spinBtn" onclick="manualSpin()">QUAY</button>
+                <div class="info-box" style="padding: 2px; width:90px; max-height:25px;">
+                    <input type="number" id="betInput" value="0.40" min="0.40" step="0.10" class="custom-bet-input" onchange="updateMainBet()" title="Nhập số tiền cược tùy chọn">
                 </div>
             </div>
-            <button class="btn-spin" id="spinBtn" onclick="manualSpin()">QUAY</button>
-            <div style="display:flex; flex-direction:column; gap:5px;">
+            <div style="display:flex; flex-direction:column; gap:5px; flex:1;">
                 <button class="btn-small" id="turboBtn" onclick="toggleTurbo()">🔥 NHANH</button>
                 <button class="btn-small" id="autoBtn" onclick="toggleAuto()">🔄 AUTO</button>
             </div>
@@ -437,43 +429,31 @@
     function pTone(f, t, d, v=0.1) { if(!soundEnabled) return; const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.type=t; o.frequency.setValueAtTime(f, audioCtx.currentTime); g.gain.setValueAtTime(v, audioCtx.currentTime); g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime+d); o.connect(g); g.connect(audioCtx.destination); o.start(); o.stop(audioCtx.currentTime+d); }
     function pSpin() { pTone(800, 'square', 0.03, 0.01); } function pExplode() { pTone(150, 'sawtooth', 0.2, 0.2); } function pWin() { setTimeout(()=>pTone(440,'sine',0.2,0.1),0); setTimeout(()=>pTone(659,'sine',0.3,0.1),150); } function pBigWin() { setTimeout(()=>pTone(523,'triangle',0.2,0.2),0); setTimeout(()=>pTone(1046,'triangle',0.6,0.3),200); }
 
-    /* --- CẤU HÌNH CƠ BẢN --- */
-    let balance = 1000.00; let mainBet = 0.40;
-    let isSpinning = false, isAuto = false, isTurbo = false, isHyper = false;
+    /* --- CẤU HÌNH CƠ BẢN (KHỞI ĐẦU 100 VÀNG) --- */
+    let balance = 100.00; let mainBet = 0.40;
+    let isSpinning = false, isAuto = false, isTurbo = false, isHyper = false, isLight = false;
     let autoSpinTimeout = null, freeSpinsLeft = 0;
     let currentTheme = 'aov'; const totalCells = 30;
     let lifetimeBet = 0; 
 
     const themes = {
-        aov: { title: "LIÊN QUÂN SLOT", btnText: "MUA 15 NỔ HŨ", symbols: ['🪄', '🗡️', '🐉', '🏰', '👑', '🔥', '⚡', '⚔️', '🛡️'], wild: '🌟', scatter: '🔮', payouts: { '🪄':0.2, '🗡️':0.3, '🐉':0.4, '🏰':0.5, '👑':1.0, '🔥':1.5, '⚡':2.0, '⚔️':3.0, '🛡️':5.0 } },
-        cowboy: { title: "CAO BỒI WILD WEST", btnText: "MUA TRUY NÃ", symbols: ['🤠', '🔫', '🐴', '👢', '🌵', '🏜️', '🍻', '💰', '🧨'], wild: '⭐', scatter: '🏦', payouts: { '🌵':0.2, '👢':0.3, '🍻':0.4, '🐴':0.5, '🏜️':1.0, '🔫':1.5, '🤠':2.0, '🧨':3.0, '💰':5.0 } }
+        aov: { title: "LIÊN QUÂN SLOT", btnText: "MUA 15 NỔ HŨ", symbols: ['🪄', '🗡️', '🐉', '🏰', '👑', '🔥', '⚡', '⚔️', '🛡️'], wild: '🌟', scatter: '🔮', payouts: { '🪄':0.1, '🗡️':0.15, '🐉':0.2, '🏰':0.3, '👑':0.5, '🔥':0.7, '⚡':1.0, '⚔️':1.5, '🛡️':2.5 } },
+        cowboy: { title: "CAO BỒI WILD WEST", btnText: "MUA TRUY NÃ", symbols: ['🤠', '🔫', '🐴', '👢', '🌵', '🏜️', '🍻', '💰', '🧨'], wild: '⭐', scatter: '🏦', payouts: { '🌵':0.1, '👢':0.15, '🍻':0.2, '🐴':0.3, '🏜️':0.5, '🔫':0.7, '🤠':1.0, '🧨':1.5, '💰':2.5 } }
     };
 
-    /* --- TÍNH NĂNG MỚI: VIP, QUEST, HISTORY, JACKPOT, CHAT ĐA DẠNG --- */
+    /* --- VIP, QUEST, HISTORY, JACKPOT, CHAT ĐA DẠNG --- */
     let xp = 0; let xpNeeded = 1000; let vipLevel = 1;
     let qSpins = 0; let qBetTotal = 0;
     let q1Claimed = false; let q2Claimed = false;
     let jackpot = 50000.00;
     let hasShield = false; let hasX2 = false;
+    let currentLbTab = 'rich';
+    let lastSpeaker = ''; 
+    let myChatPrefix = "";
 
     setInterval(() => { jackpot += Math.random() * 5; document.getElementById('jpAmt').innerText = jackpot.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }, 1000);
 
-    /* --- TÍNH NĂNG AFK NHẬN LÌ XÌ --- */
-    setInterval(() => {
-        let afkAmount = Math.floor(Math.random() * 91) + 10; // 10K đến 100K
-        balance += afkAmount;
-        updateUI();
-        addHistory(`Lì xì treo máy AFK (+${afkAmount}K)`, true);
-        
-        let t = document.getElementById('afkToast');
-        document.getElementById('afkAmt').innerText = `+${afkAmount}K`;
-        t.classList.add('show');
-        pWin(); 
-        
-        setTimeout(() => { t.classList.remove('show'); }, 4000); 
-    }, 45000); 
-
-    /* DANH SÁCH NPC */
+    /* DANH SÁCH NPC SIÊU MỞ RỘNG (200 NGƯỜI) */
     const fakeNames = [
         'Người bí ẩn 2026', 'Lê Quang Dũng', 'Trần Minh Triết', 'Chị Ngân 74', 'Thủy', 'Boy Quảng Trị 74',
         'Simp Chúa Chợ Mới', 'Giáo Sư Xoay Slot', 'Ninja Rùa Quét Rác', 'Cục Đá Biết Đi', 
@@ -489,9 +469,44 @@
         'Săn Sale 1K', 'Ế Bằng Thực Lực', 'Đang Chạy Deadline', 'Ngủ Gật Trong Lớp',
         'Nhịn Ăn Chơi Nét', 'Thích Đu Idol', 'Ông Hoàng Bịp Bợm', 'Kẻ Thất Tình',
         'Cú Đêm 3h Sáng', 'Đội Trưởng Lạc Đường', 'Bậc Thầy Trốn Học', 'Mỏ Hỗn Xóm Trọ',
-        'Sói Cô Độc', 'Gấu Mùa Đông'
+        'Sói Cô Độc', 'Gấu Mùa Đông', 'Cơ Trưởng Đu Đỉnh', 'Chúa Tể Luộc Gà', 
+        'Thần Đồng Gỡ Gạc', 'Vua Lật Kèo', 'Thầy Ông Nội', 'Chuyên Gia Đọc Lệnh', 
+        'Flexer Toàn Thời Gian', 'Học Thần Duy Tân', 'Tiên Tri Vũ Trụ', 'Trùm Cày Thuê',
+        'Bác Sĩ Tâm Thần', 'Lươn Thanh Hóa', 'Boy Phố Đi Bộ', 'Kiếm Sĩ 3 Kiếm',
+        'Dân Chơi Quảng Trị', 'Thánh Bào Khuyến Mãi', 'Thợ Săn FreeSpins', 'Cực Hạn All-in',
+        'Lão Hạc Đánh Con Đề', 'Cậu Vàng Thả Bóng', 'Mõm Chúa Online', 'Chỉ Đánh Banker',
+        'Player Đời Đầu', 'Roulette Thần Sầu', 'Đại Gia Đất Cảng', 'Hắc Công Tử',
+        'Bạch Công Tử', 'Chúa Tể Keno', 'Mỹ Nhân Kế', 'Vô Diện Đi Học',
+        'Hacker Mũ Rơm', 'Cầm Đồ Uy Tín', 'Ăn Xin 4.0', 'Thánh Đẩy Ngực',
+        'Marketing K29', 'Đỗ Nghèo Khỉ', 'Sếp Tổng AsiaLife', 'Phi Tiêu Bất Trúng',
+        'Thánh Sút Penalty', 'Đồng Xu May Mắn', 'Bầu Cua Đại Sư', 'Kéo Búa Bao Pro',
+        'Chẵn Lẻ Vô Song', 'Dò Mìn Chuyên Nghiệp', 'Kỵ Sĩ Đua Ngựa', 'Bà Đồng Xem Cầu',
+        'Bé Heo Đập Trứng', 'Aviator Thần Tốc', 'Xì Dách 21 Điểm', 'Baccarat Vô Địch',
+        'Cụ Tổ Ngành Slot', 'Trùm Săn Giftcode', 'Đại Gia Crypto', 'Vua Đu Đỉnh',
+        'Nghiện Slot Nặng', 'Cháy Acc 5 Phút', 'Tất Tay Đi Ra Đê', 'Trùm Thả Plinko',
+        'Hải Phòng Là Không Lòng Vòng', 'Né Cầu Tài Xỉu', 'Bốc Bát Họ K30', 'Chiến Thần Đập Lu',
+        'Út Lượm 74', 'Ba Khía Đi Bar', 'Lâm Công Tử 2005', 'Công Chúa Bong Bóng',
+        'Chúa Tể Check Var', 'Hội Trưởng Hội Gỡ Gạc', 'Khóc Thuê Sòng Bài', 'Thánh Nhọ Xóm Núi',
+        'Cần Một Bờ Vai', 'Boy Nhà Nghèo', 'Girl Cày Hũ', 'Anh Bảy Sút Phạt',
+        'Mười Khó Leo Rank', 'Già Làng Slot', 'Thổ Địa Sòng Bài', 'Vua Thả Thính',
+        'Nữ Hoàng Baccarat', 'Kẻ Thao Túng Tâm Lý', 'Bé Thỏ Thích Vàng', 'Gà Lạc Sòng Casino',
+        'Thợ Săn Đêm ĐN', 'Chuyên Gia Đu Đỉnh Crypto', 'Đại Gia Bất Động Sản', 'Học Viên Hệ Vàng',
+        'Thánh Soi Cầu Miền Trung', 'Lãng Tử Quảng Trị', 'Trùm Săn Lì Xì AFK', 'Chúa Tể Bấm Nhanh',
+        'Tín Đồ Tốc Độ', 'Dân Chơi Khởi Nghiệp', 'Triết Học Muôn Năm', 'Digital Marketing Master',
+        'Nữ Thần May Mắn', 'Cậu Ba Bạc Liêu', 'Bạch Diện Thư Sinh', 'Sát Thủ Slot Gà',
+        'Chuyên Gia Bào Khuyến Mãi', 'Thánh Ăn Chực', 'Chúa Tể Gacha', 'Chiến Thần Tích Lũy',
+        'Trùm Cắm Sổ Đỏ', 'Kẻ Lang Thang Casino', 'Tỉ Phú Tương Lai', 'Giấc Mơ Đại Gia',
+        'Vua Bầu Cua Đất Bắc', 'Thần Bài Miền Tây', 'Chuyên Gia Ôm Bom', 'Cơ Trưởng Plinko',
+        'Đội Trưởng Trắng Tay', 'Vua Trở Về Từ Đảo', 'Kẻ Đi Tìm Quỹ Jackpot', 'Hành Trình Lên VIP',
+        'Thợ Rèn Mảnh Thần Binh', 'Kiếm Sĩ Thần Cầu', 'Chủ Sòng Tương Lai', 'Đại Gia Thả Bóng',
+        'Hắc Báo Casino', 'Phượng Hoàng Lửa Slot', 'Thánh Nổ Hũ 2026', 'Thợ Săn Két Sắt',
+        'Lão Hạc Ăn Khế', 'Cậu Vàng Học Triết', 'Dân Chơi Phố Cổ', 'Boy Đẹp Trai Nghèo',
+        'Girl Sang Chảnh Canh Hũ', 'Trùm Aviator ĐN', 'Phi Đội Bay Đêm', 'Thần Đồng Sút Phạt',
+        'Kẻ Đuổi Theo Đồng Xu', 'Thần Điêu Đại Hiệp Slot', 'Dương Quá Chơi Bài', 'Cô Cô Thích Chẵn Lẻ',
+        'Tây Độc Soi Cầu', 'Bắc Cái Thả Bóng', 'Nam Đế Baccarat', 'Trung Thần Thông Nổ Hũ'
     ];
     
+    /* DANH SÁCH NỘI DUNG CHAT GỐC */
     const fakeMsgs = [
         'Vừa tất tay tài xỉu sập nguồn luôn ae', 'Chơi game này bánh cuốn thực sự', 
         'Ai ném tôi cái bùa hộ mệnh đi, đen quá', 'Nhà cái nay dễ tính thế, toàn nhả', 
@@ -533,71 +548,128 @@
         'Nghe đồn ad sắp ra map mới, hóng vãi', 'Vừa mua cái bùa hộ mệnh xong thắng liên tiếp 5 ván',
         'Đúng là thánh nhân đãi kẻ khù khờ', 'Cuối tháng hết tiền rồi, ráng cày kiếm gói mì tôm',
         'Mới rớt môn xong, vào đây xả stress', 'Chơi game 180 độ C luôn, nóng hết cả máy',
-        'Treo máy mãi mà lì xì rớt ra sướng thế', 'Anh em cứ AFK đi, tiền tự chảy vào túi',
-        'Vừa đi tắm ra thấy báo nhận lì xì 99K =))', 'Có ai sưu tập đủ 4 mảnh thần binh chưa?',
-        'Vừa tốn 10 củ quay gacha mà toàn ra rác cay thế'
+        'Có ai sưu tập đủ 4 mảnh thần binh chưa?', 'Vừa tốn 10 củ quay gacha mà toàn ra rác cay thế', 
+        'Mã Duy Tân hôm nay húp được chưa mọi người?', 'Trùm Free Fire mà qua đây bấm Slot toàn trượt ngón tay', 
+        'mxhquangdung.com uy tín số 1 Việt Nam ae ơi', 'Ai ở Đà Nẵng lập team đi bar ăn mừng nổ hũ đi', 
+        'Khởi nghiệp vốn 100k giờ lên 2 củ rồi, ảo thực sự', 'Ăn x500 kìa, chấn động vũ trụ luôn!', 
+        'Giao diện mượt như Sunwin đời đầu', 'Ét ô ét, cứu cái tài khoản của tôi với ad ơi', 
+        'Bấm mỏi tay quá bật Auto thôi ae', 'Đang chạy deadline sấp mặt vẫn phải làm nháy Roulette', 
+        'Có ai nợ môn Triết học giống tôi không?', 'Đẩy ngực 6 múi run tay ấn nhầm All-in và cái kết... ngon lành!', 
+        'Ai gánh Liên Quân giùm em với, trầm cảm quá', 'Boy Quảng Trị uy tín, nói là làm, cược là ăn!', 
+        'Chủ tịch Asia Life có khác, top 1 phú豪 luôn', 'Xin bùa may mắn từ anh Lê Quang Dũng coi', 
+        'Ủa sao rút tiền nhanh thế, ting ting luôn trong 3s', 'Đừng cản tôi, ván này ra Đỏ chắc chắn!', 
+        'Đi bụi rồi, còn đúng cái nịt', 'Săn sale 1k không trúng, qua đây húp hũ 10 củ =))', 
+        'Phù thủy toán học tính cầu sai bét nhè rồi', 'Mỏ hỗn xóm trọ vừa trúng hũ to đang gầm rú ngoài kia', 
+        'Cú đêm 3h sáng thức canh hũ nổ, cuối cùng cũng thành công!', 'Lạc đường mà lạc vô sòng bài này là chuẩn bài rồi', 
+        'Bậc thầy trốn học đi cày VIP slot', 'Gymer tay to bấm nút nổ hũ rách cả màn hình', 
+        'Học Digital Marketing mà tối ngày soi cầu Tài Xỉu', 'Bài hát cuộc đời nghe thấm vãi ae ạ', 
+        'Mơ thấy người yêu cũ đánh con gì ae?', 'Thả bóng Plinko rơi vô ô x100 phê rân rân', 
+        'Dò mìn trúng ngay quả bom đầu tiên, xui vãi chưởng', 'Đua ngựa con Vàng phi ác chiến thật, lật kèo phút cuối', 
+        'Phi tiêu trúng tâm phát ăn x5 ngon ơ', 'Baccarat Banker thần chưởng, cứ thế mà vả', 
+        'Xì dách ngũ linh húp sạch cả sòng luôn haha', 'Keno hôm nay nổ liên tọi, ae vào húp lẹ', 'Đập trứng ra bùa hộ mệnh ngon lành cành đào',
+        'Cò quay Roulette quay lú cả đầu', 'Aviator bay cao quá không kịp chốt lời nó nổ mất cay',
+        'Bầu cua tôm cá ra toàn cua, ad thiên vị cua à?', 'Kéo búa bao thua máy 3 ván liên tiếp, trầm cảm',
+        'Số chẵn tài lộc, ae theo tôi!', 'Bà Đồng phán ván này hào quang rực rỡ, tin bà liền',
+        'Bùa hộ mệnh gánh còng lưng quả thua mini game', 'Thẻ x2 EXP cày cấp VIP sướng hẳn',
+        'Mốc cược 50,000K xa vời quá, cày bao giờ mới tới', 'Hạng 99 bảng xếp hạng, nhục nhã quá phải cày lên',
+        'Quỹ Jackpot lên 50 triệu rồi, ai húp được chắc nghỉ học luôn quá'
     ];
+
+    /* DANH SÁCH RANKS KHUNG CHAT */
+    const npcTags = [
+        { text: 'VIP 1', color: '#7f8c8d' }, { text: 'VIP 5', color: '#e74c3c' }, { text: 'VIP 8', color: '#9b59b6' }, 
+        { text: 'VIP 12', color: '#ff00ff' }, { text: 'SUPER VIP', color: 'linear-gradient(90deg, #ffd700, #ff00ff)' }, 
+        { text: 'Đại Gia', color: '#ffd700' }, { text: 'Tỉ Phú', color: '#ffaa00' }, { text: 'Triệu Phú', color: '#e67e22' }, 
+        { text: 'Đại Gia Ngầm', color: '#2c3e50' }, { text: 'Chiến Tướng', color: '#00f3ff' }, { text: 'Thách Đấu', color: '#ff3300' }, 
+        { text: 'Cao Thủ', color: '#e74c3c' }, { text: 'Kim Cương', color: '#3498db' }, { text: 'Tinh Anh', color: '#2ecc71' }, 
+        { text: 'Duy Tân K29', color: '#2ecc71' }, { text: 'Quảng Trị 74', color: '#ff9f43' }, { text: 'Đà Nẵng Pro', color: '#00a8ff' }, 
+        { text: 'Tất Tay', color: '#ff0055' }, { text: 'Đu Đỉnh', color: '#95a5a6' }, { text: 'Thần Bài', color: '#1abc9c' }, 
+        { text: 'Thánh Nhọ', color: '#555555' }, { text: 'All-In', color: '#d35400' }, { text: 'Cháy Túi', color: '#7f8c8d' }, 
+        { text: 'Con Nợ', color: '#34495e' }, { text: 'Trùm Sòng', color: '#6f1e51' }, { text: 'Bảo Hiểm', color: '#27ae60' }
+    ];
+
+    /* --- DỮ LIỆU CỔNG 20 MINI GAMES --- */
+    const mgData = {
+        1: { t: '🚀 Aviator', c: ['CHỐT LỜI'], cl: ['c-red'], v: '🚀 1.00x', txt: 'Chốt lời trước khi nổ' }, 
+        2: { t: '🎴 Baccarat', c: ['PLAYER (x2)', 'BANKER (x1.95)'], cl: ['c-blue', 'c-red'], v: 'P:? - B:?', txt: 'Cửa nào cao điểm hơn?' }, 
+        3: { t: '🎡 Roulette', c: ['ĐỎ (x2)', 'ĐEN (x2)', 'XANH (x14)'], cl: ['c-red', '', 'c-green'], v: 'Cò Quay', txt: 'Chọn màu bóng rơi' }, 
+        4: { t: '🃏 Xì Dách', c: ['RÚT', 'DẰN'], cl: ['c-green', 'c-red'], v: 'Bài: 10', txt: 'Kéo gần 21 ăn x2' }, 
+        5: { t: '🔽 Plinko', c: ['THẢ BÓNG'], cl: ['c-gold'], v: '🔽', txt: 'Rơi ngẫu nhiên x0.2 - x100' }, 
+        6: { t: '🐉 Long Hổ', c: ['LONG (x2)', 'HỔ (x2)'], cl: ['c-blue', 'c-red'], v: 'L:? - H:?', txt: 'Đọ bài lớn nhỏ' }, 
+        7: { t: '🎲 Sicbo', c: ['TÀI (x2)', 'XỈU (x2)', 'BÃO (x30)'], cl: ['c-red', 'c-blue', 'c-gold'], v: '⚀⚀⚀', txt: 'Tổng 3 viên xúc xắc' }, 
+        8: { t: '🎫 Keno', c: ['MUA VÉ'], cl: ['c-green'], v: '🎱', txt: 'Trúng x1 đến x50' }, 
+        9: { t: '📈 Hi-Lo', c: ['CAO HƠN', 'THẤP HƠN'], cl: ['c-green', 'c-red'], v: 'Bài: 7', txt: 'Đoán lá tiếp theo (x2)' }, 
+        10: { t: '💎 Wheel VIP', c: ['QUAY'], cl: ['c-gold'], v: '🎰', txt: 'Săn Jackpot x10,000' }, 
+        11: { t: '⚽ Penalty', c: ['TRÁI', 'GIỮA', 'PHẢI'], cl: ['c-blue','c-blue','c-blue'], v: '🥅', txt: 'Sút bóng (Ăn x3)' }, 
+        12: { t: '🪙 Đồng Xu', c: ['SẤP', 'NGỬA'], cl: ['c-gold','c-gold'], v: '🪙', txt: '50/50 (Ăn x2)' }, 
+        13: { t: '🦀 Bầu Cua', c: ['🦌','🎃','🐓','🐟','🦀','🦐'], cl: ['','','','','',''], v: '🎲', txt: 'Chọn linh vật (Ăn x4)' }, 
+        14: { t: '✌️ Kéo Búa Bao', c: ['✌️','✊','🖐️'], cl: ['c-blue','c-red','c-green'], v: '🤖', txt: 'Đấu Máy (Thắng x2.5)' }, 
+        15: { t: '🔢 Chẵn Lẻ', c: ['CHẴN', 'LẺ'], cl: ['c-blue', 'c-red'], v: '??', txt: 'Random số 0-99 (Ăn x2)' }, 
+        16: { t: '🥚 Đập Trứng', c: ['1', '2', '3'], cl: ['c-gold','c-gold','c-gold'], v: '🥚', txt: 'Hệ số ngẫu nhiên' }, 
+        17: { t: '💣 Dò Mìn', c: ['1', '2', '3'], cl: ['','',''], v: '📦', txt: '2 ô Tiền, 1 Mìn' }, 
+        18: { t: '🐎 Đua Ngựa', c: ['ĐỎ', 'XANH', 'VÀNG'], cl: ['c-red','c-blue','c-gold'], v: '🐎', txt: 'Về nhất (Ăn x2.5)' }, 
+        19: { t: '🎯 Phi Tiêu', c: ['NÉM'], cl: ['c-green'], v: '🎯', txt: 'Trúng tâm ăn x5' }, 
+        20: { t: '🔮 Bà Đồng', c: ['ĐOÁN'], cl: ['c-secondary'], v: '🔮', txt: 'Hào quang x3, Mù mịt x0' }
+    };
+
+    function renderHub() { let h=''; for(let i=1; i<=20; i++){ let g=mgData[i]; h+=`<div class="hub-item" onclick="openMG(${i})"><div class="hub-icon">${g.v.split(' ')[0]}</div><div>${g.t}</div></div>`; } document.getElementById('hubGrid').innerHTML = h; }
+    function openHub() { if(isSpinning) return; renderHub(); openModal('hubModal'); }
     
-    /* GACHA THẦN BINH LOGIC */
-    let gachaInv = {kiem: 0, giap: 0, canh: 0, mu: 0};
-    let hasGachaTitle = false;
-    let myChatPrefix = ""; // Danh hiệu trên kênh chat
-    const gachaTypes = ['kiem', 'giap', 'canh', 'mu'];
-    const gachaNames = {'kiem': '🗡️ Mảnh Kiếm', 'giap': '🛡️ Mảnh Giáp', 'canh': '🪽 Mảnh Cánh', 'mu': '👑 Mảnh Mũ'};
+    let curMg = null; let mgBusy = false; let aviMult = 1.0; let aviInt; let bjScore = 10;
+    function openMG(id) { closeModal('hubModal'); curMg = id; let g = mgData[id]; document.getElementById('gmTitle').innerText = g.t; document.getElementById('gmVisual').innerText = g.v; document.getElementById('gmResult').innerHTML = g.txt; document.getElementById('localBet').value = mainBet.toFixed(2); let b=''; for(let i=0; i<g.c.length; i++) b+=`<button class="mg-btn" onclick="playMG(${i})">${g.c[i]}</button>`; document.getElementById('gmControls').innerHTML = b; openModal('gameModal'); if(id===1){document.getElementById('gmVisual').innerText='🚀 1.00x'; clearInterval(aviInt);} if(id===4){bjScore=Math.floor(Math.random()*6)+10; document.getElementById('gmVisual').innerText=`Bài: ${bjScore}`;} if(id===9) document.getElementById('gmVisual').innerText=`Bài: ${Math.floor(Math.random()*8)+3}`; }
 
-    function updateGachaUI() {
-        gachaTypes.forEach(t => {
-            let el = document.getElementById(`gc-${t}`);
-            el.querySelector('span').innerText = gachaInv[t];
-            if(gachaInv[t] > 0) el.classList.add('active');
-        });
-    }
-
-    function rollGacha() {
-        if(balance < 500) return alert("Không đủ Vàng (Cần 500K)!");
-        balance -= 500;
-        updateUI();
-        addHistory("Quay Gacha (-500K)", false);
-        pSpin();
-        let resDiv = document.getElementById('gachaResult');
-        resDiv.innerText = "Đang triệu hồi...";
-        
-        setTimeout(() => {
-            let r = Math.random();
-            if(r < 0.5) {
-                resDiv.innerText = "Trượt rồi! Bạn nhận được Rác 🗑️";
-                resDiv.style.color = "#aaa";
-                pExplode();
-            } else {
-                let drop = gachaTypes[Math.floor(Math.random()*gachaTypes.length)];
-                gachaInv[drop]++;
-                resDiv.innerText = `WOW! Bạn nhận được ${gachaNames[drop]}!`;
-                resDiv.style.color = "var(--c-gold)";
-                pWin();
-                updateGachaUI();
-                checkGachaWin();
+    /* HỆ THỐNG CHAT TỰ ĐỘNG - NPC TƯƠNG TÁC NGẪU NHIÊN */
+    function runFakeChat() {
+        let box = document.getElementById('chatArea');
+        if (box) {
+            let n = fakeNames[Math.floor(Math.random() * fakeNames.length)];
+            let m = "";
+            
+            // CHỈ PHẢN HỒI NẾU ĐƯỢC CHỌN (Tỷ lệ xúc xắc 25% - HÊN XUI chứ không phải câu nào cũng trả lời)
+            let isReply = (Math.random() < 0.25) && (lastSpeaker !== '') && (lastSpeaker !== 'BẠN') && (lastSpeaker !== n);
+            
+            let tagHTML = '';
+            if (Math.random() < 0.4) {
+                let tag = npcTags[Math.floor(Math.random() * npcTags.length)];
+                tagHTML = `<span class="npc-tag" style="background:${tag.color}">${tag.text}</span> `;
             }
-        }, 800);
-    }
 
-    function checkGachaWin() {
-        if(!hasGachaTitle && gachaInv.kiem > 0 && gachaInv.giap > 0 && gachaInv.canh > 0 && gachaInv.mu > 0) {
-            hasGachaTitle = true;
-            myChatPrefix = "[CHIẾN TƯỚNG]";
-            balance += 20000;
-            updateUI();
-            pBigWin();
-            addHistory("Sưu tầm đủ Gacha (+20,000K)", true);
-            alert("🎉 QUÁ ĐỈNH! Bạn đã thu thập đủ 4 Mảnh Thần Binh!\nNhận ngay 20,000K Vàng và danh hiệu [CHIẾN TƯỚNG] độc quyền trên Kênh Chat!");
+            if (isReply) {
+                let replies = [
+                    `@${lastSpeaker} Chuẩn sếp ơi, ván này em cũng theo bác!`,
+                    `@${lastSpeaker} Đỉnh thế, xin tí vía nổ hũ map này coi sếp!`,
+                    `@${lastSpeaker} Đen thôi đỏ quên đi bác hiền kkk.`,
+                    `@${lastSpeaker} Nhìn cầu đi khét lẹt, tí phát lộc nha bác.`,
+                    `@${lastSpeaker} Bớt mỏ hỗn lại sếp ơi, nhà cái nghe thấy block acc á kkk.`,
+                    `@${lastSpeaker} Marketing khóa này học slot cuốn dữ thần.`
+                ];
+                m = replies[Math.floor(Math.random() * replies.length)];
+                box.innerHTML += `
+                    <div class="msg-item" style="border-left: 2px solid var(--c-primary); padding-left: 5px; background: rgba(0,243,255,0.02);">
+                        <span class="msg-name">${tagHTML}${n} <span style="color:#aaa; font-weight:normal; font-size:10px;">phản hồi</span></span>
+                        <span class="msg-text" style="color:#7bed9f;">${m}</span>
+                    </div>
+                `;
+            } else {
+                m = fakeMsgs[Math.floor(Math.random() * fakeMsgs.length)];
+                box.innerHTML += `
+                    <div class="msg-item">
+                        <span class="msg-name">${tagHTML}${n}</span>
+                        <span class="msg-text">${m}</span>
+                    </div>
+                `;
+            }
+            
+            lastSpeaker = n; 
+            box.scrollTop = box.scrollHeight;
+            if(box.childNodes.length > 40) box.removeChild(box.firstChild); 
         }
+        let nextDelay = Math.floor(Math.random() * 1400) + 800;
+        setTimeout(runFakeChat, nextDelay);
     }
+    setTimeout(runFakeChat, 1000);
 
-    /* CHAT TƯƠNG TÁC THẬT */
-    function toggleChat() {
-        let c = document.getElementById('chatBox');
-        c.style.display = (c.style.display === 'none' || c.style.display === '') ? 'flex' : 'none';
-    }
-
+    /* BẠN NHẮN TIN CHAT VÀ NPC CÓ TỶ LỆ PHẢN HỒI LẠI */
     function sendMyMsg() {
         let inp = document.getElementById('myChatMsg');
         let txt = inp.value.trim();
@@ -607,27 +679,51 @@
         box.innerHTML += `<div class="msg-item msg-self"><span class="msg-name" style="color:var(--c-primary)">${nameHTML}</span><span class="msg-text">${txt}</span></div>`;
         box.scrollTop = box.scrollHeight;
         inp.value = '';
+        lastSpeaker = 'BẠN';
+
+        // Tỷ lệ hên xui 60% NPC sẽ rep lại bạn
+        if (Math.random() < 0.6) {
+            setTimeout(() => {
+                let n = fakeNames[Math.floor(Math.random() * fakeNames.length)];
+                let replies = [
+                    'Kinh đấy bạn ơi, gỡ gạc ác thế!', 'Đồng ý nha, tí phát lộc cho anh em đi sếp.',
+                    'Đúng rồi bạn ơi, tui cũng nghĩ vậy á.', 'Ông gõ chat làm tui run tay bấm hụt All-in luôn kkk.',
+                    'Học Duy Tân hay sao mà chat mượt thế bạn hiền kkk.', 'Dân Quảng Trị 74 ủng hộ suy nghĩ của sếp!',
+                    'Xin tí lộc đi sếp ơi, đen quá nãy giờ toàn cháy máy.', 'Đỉnh quá sếp ơi, gánh sòng bài giùm ad luôn đi!'
+                ];
+                let tagHTML = '';
+                if (Math.random() < 0.4) {
+                    let tag = npcTags[Math.floor(Math.random() * npcTags.length)];
+                    tagHTML = `<span class="npc-tag" style="background:${tag.color}">${tag.text}</span> `;
+                }
+                let replyMsg = replies[Math.floor(Math.random() * replies.length)];
+                box.innerHTML += `
+                    <div class="msg-item" style="border-left: 2px solid var(--c-gold); padding-left: 5px; background: rgba(255,215,0,0.03);">
+                        <span class="msg-name" style="color:#ffd700;">${tagHTML}${n} ↩</span>
+                        <span class="msg-text" style="color:#7bed9f; font-weight:bold;">@BẠN: ${replyMsg}</span>
+                    </div>
+                `;
+                box.scrollTop = box.scrollHeight;
+                lastSpeaker = n;
+            }, Math.floor(Math.random() * 1000) + 800);
+        }
     }
 
     document.getElementById('myChatMsg').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') sendMyMsg();
     });
 
-    setInterval(() => {
-        let box = document.getElementById('chatArea');
-        let n = fakeNames[Math.floor(Math.random()*fakeNames.length)];
-        let m = fakeMsgs[Math.floor(Math.random()*fakeMsgs.length)];
-        box.innerHTML += `<div class="msg-item"><span class="msg-name">${n}</span><span class="msg-text">${m}</span></div>`;
-        box.scrollTop = box.scrollHeight;
-        if(box.childNodes.length > 35) box.removeChild(box.firstChild); 
-    }, 1200); 
+    /* --- FIX LỖI TẮT CHAT TRIỆT ĐỂ BẰNG COMPUTEDSTYLE --- */
+    function toggleChat() {
+        let c = document.getElementById('chatBox');
+        let currentDisplay = window.getComputedStyle(c).display;
+        c.style.display = (currentDisplay === 'none') ? 'flex' : 'none';
+    }
 
     /* --- PHẦN THƯỞNG MỐC CƯỢC --- */
     const betRewards = [
-        { goal: 1000, reward: 50, claimed: false },
-        { goal: 5000, reward: 300, claimed: false },
-        { goal: 20000, reward: 1000, claimed: false },
-        { goal: 50000, reward: 3000, claimed: false },
+        { goal: 1000, reward: 50, claimed: false }, { goal: 5000, reward: 300, claimed: false },
+        { goal: 20000, reward: 1000, claimed: false }, { goal: 50000, reward: 3000, claimed: false },
         { goal: 100000, reward: 8000, claimed: false }
     ];
 
@@ -664,7 +760,7 @@
         openBetReward();
     }
 
-    /* --- BẢNG XẾP HẠNG ĐA DẠNG --- */
+    /* --- BẢNG XẾP HẠNG THỜI GIAN THỰC --- */
     const lbData = {
         rich: [
             { n: 'Người bí ẩn 2026', s: '99,500K' }, { n: 'Đỗ Thánh Nhập', s: '85,200K' }, { n: 'Thợ Săn Hũ Vàng', s: '72,100K' }, { n: 'Siêu Nhân Cầu Móng', s: '60,000K' }, { n: 'Chị Ngân 74', s: '45,000K' }
@@ -679,6 +775,7 @@
     
     function openLB() { switchLb('rich'); openModal('lbModal'); }
     function switchLb(tab) {
+        currentLbTab = tab;
         document.querySelectorAll('.lb-tab-btn').forEach(btn => btn.classList.remove('active'));
         document.getElementById('btnLb' + tab.charAt(0).toUpperCase() + tab.slice(1)).classList.add('active');
         
@@ -692,13 +789,34 @@
         `;
         
         let myRank, myScore;
-        if(tab==='rich') { myRank = balance>60000?4:99; myScore = balance.toFixed(0)+'K'; }
-        else if(tab==='bet') { myRank = lifetimeBet>90000?4:99; myScore = lifetimeBet.toFixed(0)+'K'; }
+        if(tab==='rich') { myRank = balance>60000?4:99; myScore = balance.toFixed(2)+'K'; }
+        else if(tab==='bet') { myRank = lifetimeBet>120000?2:99; myScore = lifetimeBet.toFixed(0)+'K'; }
         else { myRank = vipLevel>6?4:99; myScore = 'VIP '+vipLevel; }
         
         h += `<div class="lb-item" style="border-top: 2px solid var(--c-primary); margin-top: 5px; color: var(--c-primary);"><span>BẠN (Hạng ${myRank})</span><span>${myScore}</span></div>`;
         document.getElementById('lbArea').innerHTML = h;
     }
+
+    setInterval(() => {
+        lbData.rich.forEach(item => {
+            let val = parseFloat(item.s.replace(/,/g, '').replace('K', ''));
+            val += (Math.random() - 0.48) * 400; 
+            if (val < 100) val = 100;
+            item.s = val.toLocaleString('en-US', {maximumFractionDigits: 0}) + 'K';
+        });
+        lbData.rich.sort((a, b) => parseFloat(b.s.replace(/,/g, '')) - parseFloat(a.s.replace(/,/g, '')));
+
+        lbData.bet.forEach(item => {
+            let val = parseFloat(item.s.replace(/,/g, '').replace('K', ''));
+            val += Math.floor(Math.random() * 150); 
+            item.s = val.toLocaleString('en-US', {maximumFractionDigits: 0}) + 'K';
+        });
+        lbData.bet.sort((a, b) => parseFloat(b.s.replace(/,/g, '')) - parseFloat(a.s.replace(/,/g, '')));
+
+        if (document.getElementById('lbModal').style.display === 'flex') {
+            switchLb(currentLbTab);
+        }
+    }, 3000);
 
     function addHistory(text, isWin) {
         let b = document.getElementById('histArea');
@@ -718,15 +836,15 @@
 
     function updateQuests(spinInc, betInc) {
         qSpins += spinInc; qBetTotal += betInc; lifetimeBet += betInc;
-        if(qSpins > 50) qSpins = 50; 
+        if(qSpins > 400) qSpins = 400; 
         if(qBetTotal > 10000) qBetTotal = 10000;
         
-        document.getElementById('qBar1').style.width = `${(qSpins/50)*100}%`; document.getElementById('qTxt1').innerText = `${qSpins}/50`;
+        document.getElementById('qBar1').style.width = `${(qSpins/400)*100}%`; document.getElementById('qTxt1').innerText = `${qSpins}/400`;
         document.getElementById('qBar2').style.width = `${(qBetTotal/10000)*100}%`; document.getElementById('qTxt2').innerText = `${Math.floor(qBetTotal)}/10000`;
         
-        if(qSpins === 50 && !q1Claimed) { 
-            q1Claimed = true; balance += 200; updateUI();
-            setTimeout(() => alert("🎁 Hoàn thành NV Quay 50 lần! Nhận 200K"), 100); 
+        if(qSpins === 400 && !q1Claimed) { 
+            q1Claimed = true; balance += 100; updateUI();
+            setTimeout(() => alert("🎁 Hoàn thành NV Quay 400 lần! Nhận 100K Vàng"), 100); 
         }
         if(qBetTotal === 10000 && !q2Claimed) { 
             q2Claimed = true; balance += 500; updateUI();
@@ -742,19 +860,42 @@
         alert(`Đã mua ${name}!`); closeModal('shopModal');
     }
 
-    /* --- CƠ BẢN --- */
-    function updateUI() { document.getElementById('balance').innerText = balance.toFixed(2); document.getElementById('buyCost').innerText = (mainBet*100).toFixed(2); }
-    function updateMainBet() { if(isSpinning||freeSpinsLeft>0){ document.getElementById('betSelect').value=mainBet.toFixed(2); return;} mainBet=parseFloat(document.getElementById('betSelect').value); updateUI(); }
-    function switchTheme() { if(isSpinning||freeSpinsLeft>0) return alert("Đang quay!"); currentTheme = currentTheme==='aov'?'cowboy':'aov'; document.body.className = currentTheme==='cowboy'?'cowboy-theme':''; document.getElementById('gameTitle').innerText = themes[currentTheme].title; document.getElementById('buyBtn').innerHTML = `${themes[currentTheme].btnText} (Giá: <span id="buyCost">${(mainBet*100).toFixed(2)}</span>K)`; initGrid(); }
+    function updateUI() { 
+        document.getElementById('balance').innerText = balance.toFixed(2); 
+        document.getElementById('buyCost').innerText = (mainBet*100).toFixed(2); 
+    }
+    
+    function updateMainBet() { 
+        let betInput = document.getElementById('betInput');
+        if(isSpinning || freeSpinsLeft > 0){ 
+            betInput.value = mainBet.toFixed(2); 
+            return;
+        } 
+        let val = parseFloat(betInput.value);
+        if(isNaN(val) || val < 0.4) {
+            alert("Mức cược tối thiểu là 0.40 K!");
+            val = 0.40;
+        }
+        mainBet = val; 
+        betInput.value = mainBet.toFixed(2);
+        updateUI(); 
+    }
+    
+    function switchTheme() { 
+        if(isSpinning||freeSpinsLeft>0) return alert("Đang quay!"); 
+        currentTheme = currentTheme==='aov'?'cowboy':'aov'; 
+        document.body.className = currentTheme==='cowboy'?'cowboy-theme':''; 
+        document.getElementById('gameTitle').innerText = themes[currentTheme].title; 
+        document.getElementById('buyBtn').innerHTML = `${themes[currentTheme].btnText} (Giá: <span id="buyCost">${(mainBet*100).toFixed(2)}</span>K)`; 
+        initGrid(); 
+    }
     
     function openModal(id) { document.getElementById(id).style.display='flex'; }
     function closeModal(id) { document.getElementById(id).style.display='none'; }
     
-    // Giao dịch Toast Helper
     function showToast(type, amount, balanceAfter, isDeposit) {
         const d = new Date();
         document.getElementById('toastTime').innerText = `${('0'+d.getHours()).slice(-2)}:${('0'+d.getMinutes()).slice(-2)}`;
-        
         let tHeader = document.getElementById('toastHeader');
         let tLogo = document.getElementById('toastLogo');
         let tToast = document.getElementById('transToast');
@@ -774,18 +915,15 @@
             tLogo.style.color = '#1a56a8';
             tLogo.innerText = 'MB';
             document.getElementById('toastTitle').innerText = 'Biến động số dư';
-            document.getElementById('toastAmount').style.color = '#e74c3c'; // Tiền ra đỏ
+            document.getElementById('toastAmount').style.color = '#e74c3c'; 
             document.getElementById('toastAmount').innerText = `- ${(amount*1000).toLocaleString('vi-VN')} VND`;
             document.getElementById('toastDesc').innerText = 'ND: Rut tien tu Casino Pro Max';
         }
-        
         document.getElementById('toastBalance').innerText = `${(balanceAfter*1000).toLocaleString('vi-VN')} VND`;
-        
         tToast.classList.add('show');
         setTimeout(() => tToast.classList.remove('show'), 5000);
     }
 
-    // NẠP TIỀN
     function openDeposit() {
         if(isSpinning||freeSpinsLeft>0) return;
         document.getElementById('dpAmount').value = '';
@@ -795,22 +933,18 @@
     function processDeposit() {
         let amt = parseFloat(document.getElementById('dpAmount').value); 
         if(isNaN(amt) || amt <= 0) return alert("Vui lòng nhập số tiền hợp lệ!"); 
-        
         balance += amt; 
         updateUI(); 
         pBigWin(); 
         closeModal('depositModal'); 
         addHistory(`Nạp tiền MoMo (+${amt}K)`, true);
-        
         showToast('MOMO', amt, balance, true);
     }
 
-    // RÚT TIỀN
     function openWithdraw() { if(isSpinning||freeSpinsLeft>0) return; document.getElementById('wdBalance').innerText = balance.toFixed(2)+'K'; document.getElementById('wdAmount').value = ''; openModal('withdrawModal'); }
     function processWithdraw() {
         let amt = parseFloat(document.getElementById('wdAmount').value); if(isNaN(amt) || amt<100) return alert("Tối thiểu 100K!"); if(amt>balance) return alert("Không đủ số dư!");
         balance -= amt; updateUI(); pBigWin(); closeModal('withdrawModal'); addHistory(`Rút tiền MB Bank (-${amt}K)`, false);
-        
         showToast('MB', amt, balance, false);
     }
 
@@ -819,6 +953,7 @@
     window.onload = () => { 
         setTimeout(()=> { if(!hasSpunDaily) openModal('dailyModal'); }, 1000); 
         initGrid(); 
+        updateUI();
     }
     
     function spinStartup() {
@@ -854,24 +989,29 @@
         }, 3000);
     }
 
-    /* --- LÕI SLOT CASCADE --- */
-    let curCasWin = 0; let curGlobalMult = 0;
+    /* --- ĐIỀU CHỈNH CHẾ ĐỘ QUAY --- */
+    function toggleTurbo() { isTurbo=!isTurbo; if(isTurbo) { isHyper=false; isLight=false; } updBtn(); }
+    function toggleHyper() { isHyper=!isHyper; if(isHyper) { isTurbo=false; isLight=false; } updBtn(); }
+    function toggleLight() { isLight=!isLight; if(isLight) { isTurbo=false; isHyper=false; } updBtn(); }
+    function toggleAuto() { if(freeSpinsLeft>0) return; isAuto=!isAuto; updBtn(); if(isAuto&&!isSpinning) executeSpin(); else clearTimeout(autoSpinTimeout); }
+    function updBtn() { 
+        document.getElementById('turboBtn').className=`btn-small ${isTurbo?'btn-active':''}`; 
+        document.getElementById('hyperBtn').className=`btn-small ${isHyper?'btn-active':''}`; 
+        document.getElementById('lightBtn').className=`btn-small ${isLight?'btn-active':''}`; 
+        document.getElementById('autoBtn').className=`btn-small ${isAuto?'btn-active':''}`; 
+    }
 
+    /* --- LÕI SLOT CASCADE CORE --- */
     function initGrid() {
         const grid = document.getElementById('grid'); const overlay = document.getElementById('fsOverlay');
         grid.innerHTML = ''; if(overlay) grid.appendChild(overlay);
         for(let i=0; i<totalCells; i++) { let d = document.createElement('div'); d.className = 'symbol-box'; d.innerText = themes[currentTheme].symbols[Math.floor(Math.random()*9)]; grid.appendChild(d); }
     }
 
-    function toggleTurbo() { isTurbo=!isTurbo; if(isTurbo) isHyper=false; updBtn(); }
-    function toggleHyper() { isHyper=!isHyper; if(isHyper) isTurbo=false; updBtn(); }
-    function toggleAuto() { if(freeSpinsLeft>0) return; isAuto=!isAuto; updBtn(); if(isAuto&&!isSpinning) executeSpin(); else clearTimeout(autoSpinTimeout); }
-    function updBtn() { document.getElementById('turboBtn').className=`btn-small ${isTurbo?'btn-active':''}`; document.getElementById('hyperBtn').className=`btn-small ${isHyper?'btn-active':''}`; document.getElementById('autoBtn').className=`btn-small ${isAuto?'btn-active':''}`; }
-    
     function buyFeature() {
         if(isSpinning||freeSpinsLeft>0) return; let c = mainBet*100; if(balance<c) return alert("Không đủ Vàng!");
         if(confirm(`Thanh toán ${(c).toFixed(2)}K?`)){ balance-=c; updateUI(); addHistory(`Mua Tính Năng (-${c}K)`, false); addXP(c); updateQuests(0, c); if(currentTheme==='aov') { freeSpinsLeft=15; executeSpin(); } else { 
-            let m = Math.floor(Math.random()*(2000-10))+10; let w = mainBet*m; balance+=w; updateUI(); pBigWin(); addHistory(`Đoạt Két Sắt (+${w}K)`, true);
+            let m = Math.floor(Math.random()*(1000-10))+10; let w = mainBet*m; balance+=w; updateUI(); pBigWin(); addHistory(`Đoạt Két Sắt (+${w}K)`, true);
             document.getElementById('winTitle').innerText="ĐOẠT TRUY NÃ!"; document.getElementById('winAmount').innerText=`+${w.toFixed(2)}K`; document.getElementById('winPopup').classList.add('show'); setTimeout(()=>{document.getElementById('winPopup').classList.remove('show');},2000);
         }}
     }
@@ -879,11 +1019,17 @@
 
     function getRndSymbol(lucky) {
         let r=Math.random(), t=themes[currentTheme];
-        if(r<0.001) return {t:'j', v:'💎', h:'💎'}; 
-        if(r<0.02) { let m=[2,3,5,10,20,50,100,500][Math.floor(Math.random()*8)]; let cls='mult-text'; if(m>=50) cls+=' mult-epic'; if(m>=500) cls+=' mult-legend'; return {t:'m', v:m, h:`<span class="${cls}">x${m}</span>`}; }
-        if(r>0.97) return {t:'w', v:t.wild, h:t.wild};
-        if(r>0.95) return {t:'s', v:t.scatter, h:t.scatter};
-        let s = (lucky && Math.random()<0.12) ? lucky : t.symbols[Math.floor(Math.random()*9)]; return {t:'n', v:s, h:s};
+        if(r<0.0004) return {t:'j', v:'💎', h:'💎'}; 
+        if(r<0.009) { 
+            let m=[2,3,5,10,20][Math.floor(Math.random()*5)]; 
+            let cls='mult-text'; 
+            if(m>10) cls+=' mult-epic';
+            return {t:'m', v:m, h:`<span class="${cls}">x${m}</span>`}; 
+        }
+        if(r>0.985) return {t:'w', v:t.wild, h:t.wild};
+        if(r>0.972) return {t:'s', v:t.scatter, h:t.scatter};
+        let s = (lucky && Math.random()<0.06) ? lucky : t.symbols[Math.floor(Math.random()*9)]; 
+        return {t:'n', v:s, h:s};
     }
 
     function executeSpin() {
@@ -891,7 +1037,6 @@
         if (freeSpinsLeft===0 && balance<mainBet) { alert("Hết Vàng!"); if(isAuto) toggleAuto(); return; }
 
         isSpinning = true; document.getElementById('spinBtn').disabled = true; curCasWin = 0; curGlobalMult = 0; 
-        
         if (freeSpinsLeft>0) freeSpinsLeft--; else { balance -= mainBet; addXP(mainBet); updateQuests(1, mainBet); }
         updateUI(); document.getElementById('winPopup').classList.remove('show');
         
@@ -899,18 +1044,20 @@
         if(freeSpinsLeft>0 && overlay) { overlay.style.display='flex'; document.getElementById('fsCounter').innerText=freeSpinsLeft; }
         else if (overlay) overlay.style.display='none';
 
-        let sfx = setInterval(pSpin, 50);
+        let sfx;
+        if(!isLight) sfx = setInterval(pSpin, 50);
         let cells = document.querySelectorAll('.symbol-box');
-        cells.forEach(c => { c.classList.remove('win-highlight','exploding'); c.classList.add('spinning'); });
+        cells.forEach(c => { c.classList.remove('win-highlight','exploding'); if(!isLight) c.classList.add('spinning'); });
 
-        let anim = setInterval(() => { cells.forEach(c => c.innerText=themes[currentTheme].symbols[Math.floor(Math.random()*9)]); }, isHyper?10:40);
+        let anim;
+        if(!isLight) anim = setInterval(() => { cells.forEach(c => c.innerText=themes[currentTheme].symbols[Math.floor(Math.random()*9)]); }, isHyper?10:40);
 
         setTimeout(() => {
-            clearInterval(anim); clearInterval(sfx);
+            if(!isLight) { clearInterval(anim); clearInterval(sfx); }
             let gridData = [], lucky = themes[currentTheme].symbols[Math.floor(Math.random()*9)];
             cells.forEach((c, i) => { c.classList.remove('spinning'); let d = getRndSymbol(lucky); gridData.push(d); c.innerHTML = d.h; });
             processCascade(gridData, Array.from(cells), lucky);
-        }, isHyper?100:(isTurbo?300:800));
+        }, isLight?12:(isHyper?100:(isTurbo?300:800)));
     }
 
     function processCascade(gridData, cellsDOM, lucky) {
@@ -923,26 +1070,24 @@
             if(i.t==='w') wilds++; if(i.t==='s') scatters++; if(i.t==='j') jCount++;
         });
 
-        // Nổ Jackpot
         if(jCount >= 5) {
             let jw = jackpot; balance += jw; jackpot = 50000; updateUI(); pBigWin(); addHistory(`NỔ SIÊU JACKPOT (+${jw.toFixed(0)}K)`, true);
             alert("BẠN ĐÃ TRÚNG SIÊU QUỸ JACKPOT: " + jw.toFixed(0) + "K !!!");
         }
 
         for(let s in counts) { if(counts[s] + wilds >= 8) { wBase += mainBet * t.payouts[s] * (counts[s] + wilds - 7); wSyms.push(s); } }
-
         if (scatters >= 4 && currentTheme==='aov') { freeSpinsLeft += 10; wSyms.push(t.scatter); pBigWin(); }
 
         if (wBase > 0 || (scatters>=4 && currentTheme==='aov')) {
-            pExplode(); curCasWin += wBase; if (hasMults) curGlobalMult += boardMult;
+            if(!isLight) pExplode(); 
+            curCasWin += wBase; if (hasMults) curGlobalMult += boardMult;
             let idsToExplode = [];
             cellsDOM.forEach((c, i) => { let d = gridData[i]; if (wSyms.includes(d.v) || (wSyms.length>0 && d.t==='w')) { c.classList.add('exploding'); idsToExplode.push(i); } if (d.t==='m') c.classList.add('win-highlight'); });
 
             setTimeout(() => {
                 idsToExplode.forEach(idx => { let d = getRndSymbol(lucky); gridData[idx] = d; cellsDOM[idx].innerHTML = d.h; cellsDOM[idx].className = 'symbol-box'; });
-                setTimeout(() => processCascade(gridData, cellsDOM, lucky), isHyper?150:300);
-            }, isHyper?300:600);
-
+                setTimeout(() => processCascade(gridData, cellsDOM, lucky), isLight?15:(isHyper?150:300));
+            }, isLight?35:(isHyper?300:600));
         } else {
             if (curCasWin > 0) {
                 let fMult = curGlobalMult > 0 ? curGlobalMult : 1; let fWin = curCasWin * fMult;
@@ -950,35 +1095,31 @@
                 document.getElementById('winTitle').innerText = fMult > 10 ? "SIÊU NỔ HŨ!" : "TRÚNG THƯỞNG";
                 document.getElementById('winAmount').innerText = `+${fWin.toFixed(2)}K`;
                 document.getElementById('winAccum').innerText = fMult > 1 ? `Hệ Số Tích Lũy: x${fMult}` : "";
-                document.getElementById('winPopup').classList.add('show');
-                if(fMult>10) pBigWin(); else pWin();
-                setTimeout(() => { document.getElementById('winPopup').classList.remove('show'); finishSpin(); }, isHyper?800:2000);
+                
+                if(!isLight) {
+                    document.getElementById('winPopup').classList.add('show');
+                    if(fMult>10) pBigWin(); else pWin();
+                }
+                setTimeout(() => { document.getElementById('winPopup').classList.remove('show'); finishSpin(); }, isLight?40:(isHyper?800:2000));
             } else { finishSpin(); }
         }
     }
 
     function finishSpin() {
         isSpinning = false; let overlay = document.getElementById('fsOverlay'); if (freeSpinsLeft===0 && overlay) overlay.style.display='none';
-        if (freeSpinsLeft>0 || isAuto) { autoSpinTimeout = setTimeout(executeSpin, isHyper?50:300); } else { document.getElementById('spinBtn').disabled = false; }
+        if (freeSpinsLeft>0 || isAuto) { autoSpinTimeout = setTimeout(executeSpin, isLight?10:(isHyper?50:300)); } else { document.getElementById('spinBtn').disabled = false; }
     }
 
-    /* --- 20 MINI GAMES (RÚT GỌN LÕI) --- */
-    const mgData = {
-        1: { t: '🚀 Aviator', c: ['CHỐT LỜI'], cl: ['c-red'], v: '🚀 1.00x', txt: 'Chốt lời trước khi nổ' }, 2: { t: '🎴 Baccarat', c: ['PLAYER (x2)', 'BANKER (x1.95)'], cl: ['c-blue', 'c-red'], v: 'P:? - B:?', txt: 'Cửa nào cao điểm hơn?' }, 3: { t: '🎡 Roulette', c: ['ĐỎ (x2)', 'ĐEN (x2)', 'XANH (x14)'], cl: ['c-red', '', 'c-green'], v: 'Cò Quay', txt: 'Chọn màu bóng rơi' }, 4: { t: '🃏 Xì Dách', c: ['RÚT', 'DẰN'], cl: ['c-green', 'c-red'], v: 'Bài: 10', txt: 'Kéo gần 21 ăn x2' }, 5: { t: '🔽 Plinko', c: ['THẢ BÓNG'], cl: ['c-gold'], v: '🔽', txt: 'Rơi ngẫu nhiên x0.2 - x100' }, 6: { t: '🐉 Long Hổ', c: ['LONG (x2)', 'HỔ (x2)'], cl: ['c-blue', 'c-red'], v: 'L:? - H:?', txt: 'Đọ bài lớn nhỏ' }, 7: { t: '🎲 Sicbo', c: ['TÀI (x2)', 'XỈU (x2)', 'BÃO (x30)'], cl: ['c-red', 'c-blue', 'c-gold'], v: '⚀⚀⚀', txt: 'Tổng 3 viên xúc xắc' }, 8: { t: '🎫 Keno', c: ['MUA VÉ'], cl: ['c-green'], v: '🎱', txt: 'Trúng x1 đến x50' }, 9: { t: '📈 Hi-Lo', c: ['CAO HƠN', 'THẤP HƠN'], cl: ['c-green', 'c-red'], v: 'Bài: 7', txt: 'Đoán lá tiếp theo (x2)' }, 10: { t: '💎 Wheel VIP', c: ['QUAY'], cl: ['c-gold'], v: '🎰', txt: 'Săn Jackpot x10,000' }, 11: { t: '⚽ Penalty', c: ['TRÁI', 'GIỮA', 'PHẢI'], cl: ['c-blue','c-blue','c-blue'], v: '🥅', txt: 'Sút bóng (Ăn x3)' }, 12: { t: '🪙 Đồng Xu', c: ['SẤP', 'NGỬA'], cl: ['c-gold','c-gold'], v: '🪙', txt: '50/50 (Ăn x2)' }, 13: { t: '🦀 Bầu Cua', c: ['🦌','🎃','🐓','🐟','🦀','🦐'], cl: ['','','','','',''], v: '🎲', txt: 'Chọn linh vật (Ăn x4)' }, 14: { t: '✌️ Kéo Búa Bao', c: ['✌️','✊','🖐️'], cl: ['c-blue','c-red','c-green'], v: '🤖', txt: 'Đấu Máy (Thắng x2.5)' }, 15: { t: '🔢 Chẵn Lẻ', c: ['CHẴN', 'LẺ'], cl: ['c-blue', 'c-red'], v: '??', txt: 'Random số 0-99 (Ăn x2)' }, 16: { t: '🥚 Đập Trứng', c: ['1', '2', '3'], cl: ['c-gold','c-gold','c-gold'], v: '🥚', txt: 'Hệ số ngẫu nhiên' }, 17: { t: '💣 Dò Mìn', c: ['1', '2', '3'], cl: ['','',''], v: '📦', txt: '2 ô Tiền, 1 Mìn' }, 18: { t: '🐎 Đua Ngựa', c: ['ĐỎ', 'XANH', 'VÀNG'], cl: ['c-red','c-blue','c-gold'], v: '🐎', txt: 'Về nhất (Ăn x2.5)' }, 19: { t: '🎯 Phi Tiêu', c: ['NÉM'], cl: ['c-green'], v: '🎯', txt: 'Trúng tâm ăn x5' }, 20: { t: '🔮 Bà Đồng', c: ['ĐOÁN'], cl: ['c-secondary'], v: '🔮', txt: 'Hào quang x3, Mù mịt x0' }
-    };
-
-    function renderHub() { let h=''; for(let i=1; i<=20; i++){ let g=mgData[i]; h+=`<div class="hub-item" onclick="openMG(${i})"><div class="hub-icon">${g.v.split(' ')[0]}</div><div>${g.t}</div></div>`; } document.getElementById('hubGrid').innerHTML = h; }
-    function openHub() { if(isSpinning) return; renderHub(); openModal('hubModal'); }
-    
-    let curMg = null; let mgBusy = false; let aviMult = 1.0; let aviInt; let bjScore = 10;
-    function openMG(id) { closeModal('hubModal'); curMg = id; let g = mgData[id]; document.getElementById('gmTitle').innerText = g.t; document.getElementById('gmVisual').innerText = g.v; document.getElementById('gmResult').innerHTML = g.txt; document.getElementById('localBet').value = mainBet.toFixed(2); let b=''; for(let i=0; i<g.c.length; i++) b+=`<button class="mg-btn" onclick="playMG(${i})">${g.c[i]}</button>`; document.getElementById('gmControls').innerHTML = b; openModal('gameModal'); if(id===1){document.getElementById('gmVisual').innerText='🚀 1.00x'; clearInterval(aviInt);} if(id===4){bjScore=Math.floor(Math.random()*6)+10; document.getElementById('gmVisual').innerText=`Bài: ${bjScore}`;} if(id===9) document.getElementById('gmVisual').innerText=`Bài: ${Math.floor(Math.random()*8)+3}`; }
-
+    /* --- LOGIC CHƠI 20 MINI GAMES --- */
     function playMG(cIdx) {
-        if(mgBusy) return; let lb = parseFloat(document.getElementById('localBet').value); if(isNaN(lb)||lb<0.4) return alert("Min 0.4K");
+        if(mgBusy) return; 
+        let lb = parseFloat(document.getElementById('localBet').value); 
+        if(isNaN(lb)||lb<0.4) return alert("Min 0.4K");
         if(balance < lb) return alert("Không đủ Vàng!");
         
         balance -= lb; updateUI(); mgBusy = true; addXP(lb); updateQuests(0, lb);
         let g = mgData[curMg]; let v = document.getElementById('gmVisual'); let res = document.getElementById('gmResult');
+        let win = 0; let txt = ""; let rv = g.v; let r = Math.random();
         
         if (curMg === 1) {
             let crash = (Math.random()<0.3)?(Math.random()*1.5+1):(Math.random()*10+1); aviMult = 1.0; res.innerHTML = "Đang bay..."; document.querySelector('.mg-btn').innerText = "CHỐT LỜI!";
@@ -1002,39 +1143,99 @@
 
         res.innerText = "Đang xử lý...";
         setTimeout(() => {
-            let win=0; let txt=""; let rv=g.v; let r=Math.random();
             switch(curMg) {
-                case 2: let p=Math.floor(r*10), b=Math.floor(Math.random()*10); rv=`P:${p} - B:${b}`; if(cIdx===0&&p>b){win=lb*2;txt="P WIN";}else if(cIdx===1&&b>p){win=lb*1.95;txt="B WIN";}else if(p===b){win=lb;txt="HÒA";}else txt="THUA"; break;
-                case 3: let rr=Math.floor(r*37); let clr=(rr===0)?'XANH':(rr%2===0?'ĐỎ':'ĐEN'); rv=`Số ${rr} ${clr}`; if(cIdx===0&&clr==='ĐỎ') win=lb*2; else if(cIdx===1&&clr==='ĐEN') win=lb*2; else if(cIdx===2&&clr==='XANH') win=lb*14; txt=win>0?"TRÚNG!":"TRƯỢT"; break;
-                case 5: let m5=[0.2,0.5,1,2,5,10,100][Math.floor(r*7)]; rv=`x${m5}`; win=lb*m5; txt=`Nhận x${m5}`; break;
-                case 6: let l=Math.floor(r*13)+1, h=Math.floor(Math.random()*13)+1; rv=`L:${l} - H:${h}`; if(cIdx===0&&l>h){win=lb*2;txt="L WIN";}else if(cIdx===1&&h>l){win=lb*2;txt="H WIN";}else if(l===h){win=lb;txt="HÒA";}else txt="THUA"; break;
-                case 7: let d1=Math.floor(r*6)+1,d2=Math.floor(Math.random()*6)+1,d3=Math.floor(Math.random()*6)+1; let sum=d1+d2+d3; rv=`${d1}-${d2}-${d3}`; let it=sum>=11; let ib=(d1===d2&&d2===d3); if(cIdx===2&&ib){win=lb*30;txt="BÃO!";}else if(!ib&&cIdx===0&&it){win=lb*2;txt="T WIN";}else if(!ib&&cIdx===1&&!it){win=lb*2;txt="X WIN";}else txt="THUA"; break;
-                case 8: let kh=Math.floor(r*10); let m8=[0,0,0.5,1,2,5,10,50][Math.floor(r*8)]; rv=`Trúng ${kh} số`; win=lb*m8; txt=`Hệ số x${m8}`; break;
-                case 9: let cur=parseInt(v.innerText.replace('Bài: ','')); let nxt=Math.floor(r*13)+1; rv=`Bài: ${nxt}`; if(cIdx===0&&nxt>cur){win=lb*2;txt="ĐÚNG!";}else if(cIdx===1&&nxt<cur){win=lb*2;txt="ĐÚNG!";}else txt="SAI!"; break;
-                case 10: let mj=(r<0.0001)?10000:(r<0.01?100:(r<0.1?5:0)); rv=`x${mj}`; win=lb*mj; txt=(mj===10000)?"JACKPOT!":`Trúng x${mj}`; break;
-                case 11: let gk=Math.floor(r*3); rv=gk===cIdx?'🚫':'⚽'; win=(gk!==cIdx)?lb*3:0; txt=win>0?"VÀO!":"Bị bắt"; break;
-                case 12: let isSap=r>0.5; rv=isSap?'🪙':'🦅'; win=((cIdx===0&&isSap)||(cIdx===1&&!isSap))?lb*2:0; txt=isSap?"SẤP":"NGỬA"; break;
-                case 13: let a13=['🦌','🎃','🐓','🐟','🦀','🦐']; rv=a13[Math.floor(r*6)]; win=(rv===a13[cIdx])?lb*4:0; txt=`Ra ${rv}`; break;
-                case 14: let bot=['✌️','✊','🖐️'][Math.floor(r*3)]; rv=bot; if(cIdx===Math.floor(r*3)){win=lb;txt="HÒA";}else if((cIdx===0&&bot==='🖐️')||(cIdx===1&&bot==='✌️')||(cIdx===2&&bot==='✊')){win=lb*2.5;txt="THẮNG";}else txt="THUA"; break;
-                case 15: let num=Math.floor(r*100); rv=num; let ic=num%2===0; win=((cIdx===0&&ic)||(cIdx===1&&!ic))?lb*2:0; txt=`Số ${num}`; break;
-                case 16: let m16=[0,0.5,2,5][Math.floor(r*4)]; rv=`x${m16}`; win=lb*m16; txt=`Ăn x${m16}`; break;
-                case 17: let bm=r<0.33; rv=bm?'💣':'💰'; win=bm?0:lb*1.5; txt=bm?"BÙM!":"An toàn"; break;
-                case 18: let wh=Math.floor(r*3); rv=['Đỏ','Xanh','Vàng'][wh]; win=(cIdx===wh)?lb*2.5:0; txt=`Ngựa ${rv} Nhất`; break;
-                case 19: let pt=r>0.9?5:(r>0.5?1:0); rv=pt===5?'Tâm!':(pt===1?'Viền':'Trượt'); win=lb*pt; txt=`Ăn x${pt}`; break;
-                case 20: let bđ=r>0.5; rv=bđ?'✨':'💨'; win=bđ?lb*3:0; txt=bđ?"Hào quang":"Mù mịt"; break;
+                case 2: {
+                    let p=Math.floor(r*10), b=Math.floor(Math.random()*10); rv=`P:${p} - B:${b}`; 
+                    if(cIdx===0&&p>b){win=lb*2;txt="P WIN";}else if(cIdx===1&&b>p){win=lb*1.95;txt="B WIN";}else if(p===b){win=lb;txt="HÒA";}else txt="THUA"; 
+                    break;
+                }
+                case 3: {
+                    let rr=Math.floor(r*37); let clr=(rr===0)?'XANH':(rr%2===0?'ĐỎ':'ĐEN'); rv=`Số ${rr} ${clr}`; 
+                    if(cIdx===0&&clr==='ĐỎ') win=lb*2; else if(cIdx===1&&clr==='ĐEN') win=lb*2; else if(cIdx===2&&clr==='XANH') win=lb*14; txt=win>0?"TRÚNG!":"TRƯỢT"; 
+                    break;
+                }
+                case 5: {
+                    let m5=[0.2,0.5,1,2,5,10,100][Math.floor(r*7)]; rv=`x${m5}`; win=lb*m5; txt=`Nhận x${m5}`; 
+                    break;
+                }
+                case 6: {
+                    let l=Math.floor(r*13)+1, h=Math.floor(Math.random()*13)+1; rv=`L:${l} - H:${h}`; 
+                    if(cIdx===0&&l>h){win=lb*2;txt="L WIN";}else if(cIdx===1&&h>l){win=lb*2;txt="H WIN";}else if(l===h){win=lb;txt="HÒA";}else txt="THUA"; 
+                    break;
+                }
+                case 7: {
+                    let d1=Math.floor(r*6)+1,d2=Math.floor(Math.random()*6)+1,d3=Math.floor(Math.random()*6)+1; let sum=d1+d2+d3; rv=`${d1}-${d2}-${d3}`; let it=sum>=11; let ib=(d1===d2&&d2===d3); 
+                    if(cIdx===2&&ib){win=lb*30;txt="BÃO!";}else if(!ib&&cIdx===0&&it){win=lb*2;txt="T WIN";}else if(!ib&&cIdx===1&&!it){win=lb*2;txt="X WIN";}else txt="THUA"; 
+                    break;
+                }
+                case 8: {
+                    let kh=Math.floor(r*10); let m8=[0,0.5,1,2,5,10,50][Math.floor(r*8)]; rv=`Trúng ${kh} số`; win=lb*m8; txt=`Hệ số x${m8}`; 
+                    break;
+                }
+                case 9: {
+                    let cur=parseInt(v.innerText.replace('Bài: ','')); let nxt=Math.floor(r*13)+1; rv=`Bài: ${nxt}`; 
+                    if(cIdx===0&&nxt>cur){win=lb*2;txt="ĐÚNG!";}else if(cIdx===1&&nxt<cur){win=lb*2;txt="ĐÚNG!";}else txt="SAI!"; 
+                    break;
+                }
+                case 10: {
+                    let mj=(r<0.0001)?10000:(r<0.01?100:(r<0.1?5:0)); rv=`x${mj}`; win=lb*mj; txt=(mj===10000)?"JACKPOT!":`Trúng x${mj}`; 
+                    break;
+                }
+                case 11: {
+                    let gk=Math.floor(r*3); rv=gk===cIdx?'🚫':'⚽'; win=(gk!==cIdx)?lb*3:0; txt=win>0?"VÀO!":"Bị bắt"; 
+                    break;
+                }
+                case 12: {
+                    let isSap=r>0.5; rv=isSap?'🪙':'🦅'; win=((cIdx===0&&isSap)||(cIdx===1&&!isSap))?lb*2:0; txt=isSap?"SẤP":"NGỬA"; 
+                    break;
+                }
+                case 13: {
+                    let a13=['🦌','🎃','🐓','🐟','🦀','🦐']; rv=a13[Math.floor(r*6)]; win=(rv===a13[cIdx])?lb*4:0; txt=`Ra ${rv}`; 
+                    break;
+                }
+                case 14: {
+                    let bot=['✌️','✊','🖐️'][Math.floor(r*3)]; rv=bot; 
+                    if(cIdx===Math.floor(r*3)){win=lb;txt="HÒA";}else if((cIdx===0&&bot==='🖐️')||(cIdx===1&&bot==='✌️')||(cIdx===2&&bot==='✊')){win=lb*2.5;txt="THÃNG";}else txt="THUA"; 
+                    break;
+                }
+                case 15: {
+                    let num=Math.floor(r*100); rv=num; let ic=num%2===0; win=((cIdx===0&&ic)||(cIdx===1&&!ic))?lb*2:0; txt=`Số ${num}`; 
+                    break;
+                }
+                case 16: {
+                    let m16=[0,0.5,2,5][Math.floor(r*4)]; rv=`x${m16}`; win=lb*m16; txt=`Ăn x${m16}`; 
+                    break;
+                }
+                case 17: {
+                    let bm=r<0.33; rv=bm?'💣':'💰'; win=bm?0:lb*1.5; txt=bm?"BÙM!":"An toàn"; 
+                    break;
+                }
+                case 18: {
+                    let wh=Math.floor(r*3); rv=['Đỏ','Xanh','Vàng'][wh]; win=(cIdx===wh)?lb*2.5:0; txt=`Ngựa ${rv} Nhất`; 
+                    break;
+                }
+                case 19: {
+                    let pt=r>0.9?5:(r>0.5?1:0); rv=pt===5?'Tâm!':(pt===1?'Viền':'Trượt'); win=lb*pt; txt=`Ăn x${pt}`; 
+                    break;
+                }
+                case 20: {
+                    let bd=r>0.5; rv=bd?'✨':'💨'; win=bd?lb*3:0; txt=bd?"Hào quang":"Mù mịt"; 
+                    break;
+                }
             }
 
-            v.innerHTML = rv; handleMgEnd(win, txt, lb); mgBusy = false;
+            v.innerHTML = rv; 
+            handleMgEnd(win, txt, lb); 
+            mgBusy = false;
         }, 800);
     }
 
     function handleMgEnd(win, txt, lb) {
         if(win === 0 && hasShield) { win = lb; txt += " (Đã dùng Bùa Hộ Mệnh)"; hasShield = false; alert("Bùa hộ mệnh đã cứu bạn 1 bàn thua!"); }
-        if(win > 0) { balance += win; pWin(); document.getElementById('gmResult').innerHTML = `${txt}<br><span style="color:#2ecc71">+${win.toFixed(2)}K</span>`; addHistory(`${mgData[curMg].t.split(' ')[1]} (+${win.toFixed(2)}K)`, true);}
+        if(win > 0) { balance += win; pWin(); document.getElementById('gmResult').innerHTML = `${txt}<br><span style="color:#2ecc71">+${win.toFixed(2)}K</span>`; addHistory(`${mgData[curMg].t.split(' ')[1]} (+${win.toFixed(2)}K)`, true); }
         else { document.getElementById('gmResult').innerHTML = `${txt}<br><span style="color:#e74c3c">Thua</span>`; addHistory(`${mgData[curMg].t.split(' ')[1]} (-${lb}K)`, false); }
         updateUI();
     }
-
 </script>
 </body>
 </html>
